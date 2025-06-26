@@ -1,0 +1,355 @@
+---
+title: "MCF10A_MolecularData"
+author: "IM"
+date: "2023-06-24"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load libraries
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggpmisc)
+library(lsmeans)
+library(ComplexHeatmap)
+
+#set ligand graphical parameters
+my_cols <- c('EGF'='#F68282',
+             'IFNG'='#CCB1F1',
+             'OSM'='#E6C122'
+             )
+```
+
+
+```{r data, echo=FALSE}
+#read in molecular data collected from MCF10A cells treated with microenvironmental ligands (https://www.synapse.org/Synapse:syn26523857) 
+molecular_dat<-read_csv('MDD_multiomics_matrix.csv')
+
+#format integrated molecular data
+molecular_dat_format<-molecular_dat %>%
+  gather(key = experimentalCondition, value=log2FoldChange, -Type, -feature)
+
+#rppa data (https://www.synapse.org/Synapse:syn12628291)
+rppa_symbols<-read_csv('MDD_RPPA_antibodyAnnotations.csv')
+rppa_lvl3<-read_csv('MDD_RPPA_Level3.csv')
+annot<-read_csv('Data/MDD_sample_annotations.csv')
+
+#add sample metadata and format rppa data
+rppa<-rppa_lvl3 %>%
+ column_to_rownames('antibody') %>%
+  t %>%
+  as.data.frame() %>%
+  rownames_to_column('specimenID') %>%
+  full_join(annot) %>%
+  filter(RPPA_QCpass==TRUE)
+
+symbols_from<-rppa_symbols %>%
+  select(MDD, Symbols) %>%
+  rename(ID=MDD) 
+
+#import RNAseq data (https://www.synapse.org/Synapse:syn18485473, https://www.synapse.org/Synapse:syn18779231)
+rna_lvl4<-read_csv('MDD_RNAseq_Level4.csv')
+gene_md<-read_csv('MDD_RNAseq_geneAnnotations.csv')
+
+RNAseq_md<-full_join(gene_md,rna_lvl4) %>%
+  select(-ensembl_gene_id) %>%
+  select(hgnc_symbol,OSM_48) %>%
+  rename(name=hgnc_symbol)
+
+```
+
+```{r CausalPath Input, echo=FALSE}
+#filter for features upregulated by OSM or IFNG LFC > 1
+#OSM upregulated RPPA features
+rppa_osm_pos<-molecular_dat_format %>%
+  filter(Type=='RPPA') %>%
+  filter(experimentalCondition=='OSM_48') %>%
+  select(-Type) %>%
+  filter(log2FoldChange > 1 ) %>%
+  rename(ID=feature, Value=log2FoldChange) %>%
+  #add hgnc_symbols
+  left_join(symbols_from) 
+
+#OSM upregulated cycIF intensiity features
+cyc_osm_pos<-molecular_dat_format %>%
+  filter(Type=='cycIF') %>%
+  filter(experimentalCondition=='OSM_48') %>%
+  filter((log2FoldChange>1 )) %>%
+  filter(grepl('int_mean', feature)) %>%
+  select(-Type) %>%
+  rename(ID=feature, Value=log2FoldChange) %>%
+  mutate(Symbols = '')
+cyc_osm_pos$Symbols<-c('NDRG1', '', '')
+cyc_osm_pos<-cyc_osm_pos %>%
+  filter(Symbols !='') %>%
+  #filter out features shared wiith RPPA
+  filter(Symbols %notin% rppa_osm_pos$Symbols)
+
+#RNAseq upregulated features
+rna_osm_pos<-molecular_dat_format %>%
+  filter(Type=='RNAseq') %>%
+  filter(experimentalCondition=='OSM_48') %>%
+  filter((log2FoldChange>1 )) %>%
+  rename(ID=feature, Value=log2FoldChange) %>%
+  select(-Type)
+
+rna_osm_pos$Symbols <-rna_osm_pos$ID
+
+#filter out features shared with RPPA or cycif
+rna_osm_filt_pos<-rna_osm_pos %>%
+  filter(Symbols %notin% rppa_osm_pos$Symbols & Symbols %notin% cyc_osm_pos$Symbols)
+
+osm_all_out_pathway_commons_pos<-rbind( rppa_osm_pos, rna_osm_filt_pos, cyc_osm_pos)
+
+osm_all_out_pathway_commons_pos$Sites<-''
+
+#IFNG upregulated RPPA features
+rppa_ifng_pos<-molecular_dat_format %>%
+  filter(Type=='RPPA') %>%
+  filter(experimentalCondition=='IFNG_48') %>%
+  select(-Type) %>%
+  filter(log2FoldChange > 1 ) %>%
+  rename(ID=feature, Value=log2FoldChange) %>%
+  #add hgnc_symbols
+  left_join(symbols_from) 
+
+#ifng upregulated cycIF intensiity features
+cyc_ifng_pos<-molecular_dat_format %>%
+  filter(Type=='cycIF') %>%
+  filter(experimentalCondition=='IFNG_48') %>%
+  filter((log2FoldChange>1 )) %>%
+  filter(grepl('int_mean', feature)) %>%
+  select(-Type) %>%
+  rename(ID=feature, Value=log2FoldChange) %>%
+  mutate(Symbols = '')
+
+#manually add hgnc_symbols
+cyc_ifng_pos$Symbols<-c('KRT18', '', 'MKI67', 'MET', 'NFKB1', 'CDKN1A', 'CD274', '', 'RPS6', '', 'STAT1',
+                        '','','','STAT3', 'VIM')
+
+cyc_ifng_pos<-cyc_ifng_pos %>%
+  filter(Symbols !='') %>%
+  #filter out features shared wiith RPPA
+  filter(Symbols %notin% rppa_ifng_pos$Symbols)
+
+#RNAseq upregulated features
+rna_ifng_pos<-molecular_dat_format %>%
+  filter(Type=='RNAseq') %>%
+  filter(experimentalCondition=='IFNG_48') %>%
+  filter((log2FoldChange>1 )) %>%
+  rename(ID=feature, Value=log2FoldChange) %>%
+  select(-Type)
+
+rna_ifng_pos$Symbols <-rna_ifng_pos$ID
+
+#filter out features shared with RPPA or cycif
+rna_ifng_filt_pos<-rna_ifng_pos %>%
+  filter(Symbols %notin% rppa_ifng_pos$Symbols & Symbols %notin% cyc_ifng_pos$Symbols)
+
+ifng_all_out_pathway_commons_pos<-rbind( rppa_ifng_pos, rna_ifng_filt_pos, cyc_ifng_pos)
+
+ifng_all_out_pathway_commons_pos$Sites<-''
+```
+
+```{r Heatmap, echo=FALSE}
+#heatmap of IFNG and OSM upregulated features
+#bind OSM and IFNG data
+osm_ifng_list<-rbind(osm_all_out_pathway_commons_pos, ifng_all_out_pathway_commons_pos) %>%
+  select(ID, ligand, Value, Symbols) %>%
+  spread(key = ligand, value = Value) %>%
+  rename(feature = ID)
+
+#format integrated LFC data from upregulated features
+osm_ifng_hm <-molecular_dat_format %>%
+  filter(experimentalCondition=='OSM_24' | experimentalCondition == 'OSM_48'| experimentalCondition=='IFNG_24' | experimentalCondition == 'IFNG_48')%>%
+  filter(feature %in% osm_ifng_list$feature) %>%
+  left_join(osm_ifng_list) %>%
+  select(Symbols, experimentalCondition, log2FoldChange, Type) 
+
+osm_ifng_hm  <- osm_ifng_hm %>%
+  group_by(experimentalCondition, Symbols) %>%
+  mutate(log2FoldChange = max(log2FoldChange))%>%
+  select(-Type) %>%
+  distinct()
+
+osm_ifng_hm<-osm_ifng_hm %>%
+  spread(key = experimentalCondition, value = log2FoldChange) %>%
+  column_to_rownames('Symbols')
+
+colnames(osm_ifng_hm)<-c('IFNG - 24', 'IFNG - 48', 'OSM - 24', 'OSM - 48')  
+
+#highlight RPPA features
+rppa_list<-molecular_dat_format %>%
+  filter(experimentalCondition=='OSM_24' | experimentalCondition == 'OSM_48'| experimentalCondition=='IFNG_24' | experimentalCondition == 'IFNG_48')%>%
+  filter(feature %in% osm_ifng_list$feature) %>%
+  left_join(osm_ifng_list) %>%
+  select(Symbols, experimentalCondition, log2FoldChange, Type)%>%
+  filter(Type == 'RPPA') %>%
+  filter(experimentalCondition == 'OSM_24' | experimentalCondition == 'OSM_48') %>%
+  filter(log2FoldChange > 1.5)
+
+#indicate RPPA features in heatmap
+overlap_labs<-unique(rownames(osm_ifng_hm)[rownames(osm_ifng_hm) %in% toupper(rppa_list$Symbols)])
+overlap_labs_positions<-row(osm_ifng_hm)[rownames(osm_ifng_hm) %in% toupper(overlap_labs)][1:length(overlap_labs)]
+
+#make RPPA annotation
+ha<- rowAnnotation(foo = anno_mark(at = overlap_labs_positions, labels = overlap_labs, labels_gp = gpar( fontsize = 18), link_width = unit(20, "mm")))
+
+#draw heatmap         
+Heatmap(matrix = osm_ifng_hm,
+        name = "LFC",
+        column_title = 'Integrated Molecular Matrix',
+        show_row_names = F,
+        show_column_names = T,
+        cluster_columns = F,
+        cluster_rows = T,
+        na_col = "grey",
+        row_title_gp = gpar(fontsize = 26),
+        col=colorRamp2(c(-3, 0, 3), c("blue", "white", "red")),
+        right_annotation = ha,
+        heatmap_legend_param = list(labels_gp = gpar( fontsize = 26), title_gp = gpar( fontsize = 26)),
+        column_title_gp = gpar(fontsize = 30),
+        column_names_gp = gpar(fontsize = 24))
+```
+
+```{r Node rewiring rankings, echo=FALSE}
+#rank all nodes from cytoscape analysis for rewiring when comparing OSM vs IFNG
+#import infg vs osm nodes with rewiring scores and define ranking for expression for tfs and genes
+osm_ifng_node_rewiring<-read_csv('osm_ifng_pos.csv')
+
+#filter for OSM nodes
+osm_present<-osm_ifng_node_rewiring %>%
+  filter(osm_pos.sif_present=='TRUE')
+
+#tf list
+tf_list<-read_tsv('Node_Nomination/TF_names_v_1.01.txt', col_names = F)
+
+
+
+osm_present_tfs<-osm_present %>%
+  filter(name %in% tf_list$X1) %>%
+  left_join(RNAseq_md) %>%
+  mutate(expression_z = scale(OSM_48, center = F)) %>%
+  mutate(dyn_z = scale(`DyNet Rewiring (Dn-score)`, center = F)) %>%
+  mutate(z_ranking = dyn_z + expression_z) 
+
+osm_present_genes <- osm_present %>%
+  left_join(RNAseq_md) %>%
+  #scale by expression by OSM at 48 hours
+  mutate(expression_z = scale(OSM_48, center = F)) %>%
+  #scale rewiring score 
+  mutate(dyn_z = scale(`DyNet Rewiring (Dn-score)`, center = F)) %>%
+  #definen comprative network importance score
+  mutate(z_ranking = dyn_z + expression_z)
+osm_present_genes<-osm_present_genes[order(osm_present_genes$z_ranking, decreasing = T),]
+
+#plot top 14
+t<-ggplot(osm_present_genes[c(1:14),], aes(x = reorder(name, z_ranking), y=z_ranking)) +
+  geom_bar(stat='identity') + coord_flip() +
+  theme() + xlab('Node')  + ylab('Comparative Network Importance Score') +
+  theme_bw() + theme(axis.title.x = element_text(size = 24),
+                     axis.text.x = element_text(size = 24),
+                     axis.title.y = element_text(size = 24),
+                     axis.text.y = element_text(size = 28),panel.border = element_blank(), 
+                                                          axis.line = element_blank())
+```
+
+```{r RPPA and RNAseq lineplots for specific features, echo=FALSE}
+#stat3 lineplot with error bars
+#normalize to T0
+t0_val<-rppa%>%
+  filter(experimentalTimePoint == 0) %>% 
+  mutate(STAT3_ctrl = stat3p_pos) %>%
+  select(STAT3_ctrl, replicate)
+
+dt_T0 <- rppa %>%
+  left_join(t0_val) %>%
+  mutate(STAT3=stat3p_pos/STAT3_ctrl) %>%
+  filter(experimentalTimePoint!=0) %>%
+  group_by(ligand, experimentalTimePoint) %>%
+  mutate(stat3p_median = median(STAT3)) %>%
+  mutate(stat3p_min = min(STAT3)) %>%
+  mutate(stat3p_max = max(STAT3)) %>%
+  ungroup()
+
+#add time0 for each ligand (ctrl condition)
+addendum<-data_frame(ligand = 'OSM', stat3p_median = 1, experimentalTimePoint = 0) 
+addendum2<-data_frame(ligand = 'EGF', stat3p_median = 1, experimentalTimePoint = 0) 
+addendum3<-data_frame(ligand = 'IFNG', stat3p_median = 1, experimentalTimePoint = 0) 
+addendum_tot<-rbind(addendum, addendum2)
+addendum_total<-rbind(addendum_tot, addendum3)
+
+#format data
+df <- dt_T0 %>%
+  full_join(addendum_total)
+  gather(key = 'Antibody', value = 'Intensity', -ligand, -time, -Condition) 
+
+#plot stat3
+ggplot(df, aes(x=as.numeric(experimentalTimePoint), y = stat3p_median, group = ligand, color = ligand)) +
+  geom_line(size=2) + geom_point(aes(x=as.numeric(experimentalTimePoint), y=STAT3)) + geom_errorbar(aes(ymin = stat3p_min, ymax = stat3p_max), size = 1, width = 1) +
+  scale_x_continuous(breaks = c(0,1,4,8,24,48)) + scale_color_manual(values = my_cols) +
+  labs(x="Time",
+       y="STAT3_pY705"
+  ) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 0, size=rel(3)),
+        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(3)),
+        plot.title = element_text(size = rel(3)),legend.text=element_text(size = rel(2)), axis.title = element_text(size = rel(3)),
+        legend.title=element_text(size = rel(2)))+                                                            
+  theme(strip.text.x = element_text(size = 25))  + guides(color=guide_legend(title="Ligand"))
+
+#plot HIF1A
+rppa_hif1a<-rppa %>%
+  filter(ligand=='EGF' | ligand == 'OSM' | ligand == 'IFNG') %>%
+  group_by(ligand, experimentalTimePoint) %>%
+  mutate(hif1a_median = median(`Hif-1-alpha`)) %>%
+  mutate(hf1a_min = min(`Hif-1-alpha`)) %>%
+  mutate(hf1a_max = max(`Hif-1-alpha`)) %>%
+  gather(key = 'Antibody', value = 'Intensity', -ligand, -time, -Condition) 
+  
+ggplot(rppa_hif1a, aes(x=as.numeric(experimentalTimePoint), y = hif1a_median, group = ligand, color = ligand)) + geom_line(size=2) + geom_point(aes(x=as.numeric(experimentalTimePoint), y=`Hif-1-alpha`)) + geom_errorbar(aes(ymin = hf1a_min, ymax = hf1a_max), size = 1, width = 1) +
+    scale_x_continuous(breaks = c(0,1,4,8,24,48)) + scale_color_manual(values = my_cols) +
+    labs(x="Time",
+         y="HIF1A Protein Expression"
+         ) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 0, size=rel(3)),
+          axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(3)),
+          plot.title = element_text(size = rel(3)),legend.text=element_text(size = rel(2)), axis.title = element_text(size = rel(3)),
+          legend.title=element_text(size = rel(2)))+                                                          
+    theme(strip.text.x = element_text(size = 25))  + guides(color=guide_legend(title="Ligand"))
+
+#HIF1A RNAseq
+RNAseq_hif1a<-RNAseq_md %>%
+  select(-ensembl_gene_id) %>%
+  filter(hgnc_symbol == 'HIF1A') %>%
+  column_to_rownames('hgnc_symbol') %>%
+  t %>%
+  as.data.frame() %>%
+  rownames_to_column('specimenID')
+
+#t0 readiing
+time0_col<-RNAseq_hif1a[1,]
+time0_col$Ligand <- c('EGF','IFNG','OSM')
+
+RNAseq_hif1a<-RNAseq_hif1a %>%
+  filter(Time>0) %>%
+  mutate(Ligand=c('EGF','EGF','IFNG','IFNG','OSM','OSM')) %>%
+  rbind(time0_col)
+
+ggplot(RNAseq_hif1a, aes(x=Time, y = HIF1A, group = Ligand, color = Ligand, fill = Ligand)) +
+  geom_line(size=2) + scale_color_manual(values=my_cols) +
+  scale_x_continuous(breaks = c(0,24,48)) +
+  labs(x="Time (hrs)",
+       y="HIF1A FPKM"
+  )  +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 0, size=rel(3)),
+        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(3)),
+        plot.title = element_text(size = rel(3)),legend.text=element_text(size = rel(2)), axis.title = element_text(size = rel(3)),
+        legend.title=element_text(size = rel(2)))+ guides(color=guide_legend(title="Ligand"))
+```
+

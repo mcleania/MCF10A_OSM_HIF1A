@@ -1,0 +1,151 @@
+---
+title: "scRNAseq_BRCA_Analysis"
+author: "IM"
+date: "2025-01-10"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load libraries
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggpmisc)
+library(DescTools)
+library(stats)
+library(svglite)
+library(circlize)
+library(rlang)
+library(Seurat)
+library(patchwork)
+library(COTAN)
+```
+
+```{r Data, echo=FALSE}
+#scRNAseq data from https://doi.org/10.1038/s41588-021-00911-1
+wu<-Read10X('WU_scData/', gene.column = 1)
+
+#cell types and metadata 
+metadata_wu<-read_csv('Whole_miniatlas_meta.csv')
+```
+
+```{r Normalization Dimensional Reudction etc, echo=FALSE}
+wu <- CreateSeuratObject(counts = wu, project = "wu", min.cells = 3, min.features = 200)
+
+#normalize
+wu <- NormalizeData(wu)
+
+#most variable genes
+wu <- FindVariableFeatures(wu)
+
+#scale data
+all.genes <- rownames(wu)
+wu <- ScaleData(wu, features = all.genes)
+
+#dimensional reduction and clustering
+wu <- RunPCA(wu, features = VariableFeatures(object = wu))
+wu <- FindNeighbors(wu, dims = 1:20)
+wu <- FindClusters(wu, resolution = 0.5)
+wu <- RunUMAP(wu, dims = 1:20)
+
+#isolate cancer epithelial cells
+Idents(wu)<-'celltype_major'
+epi_wu<-subset(wu, idents = 'Cancer Epithelial')
+
+#rerun UMAP on epithelial population
+epi_wu <- FindNeighbors(epi_wu, dims = 1:20)
+epi_wu <- FindClusters(epi_wu, resolution = 0.5)
+epi_wu <- RunUMAP(epi_wu, dims = 1:20)
+
+#set identity to cancer subtype
+Idents(epi_wu)<-'subtype'
+```
+
+```{r Basic plots, echo=FALSE}
+#UMAP of cell types
+DimPlot(wu, reduction = "umap")+ theme_classic(base_size = 11)
+
+#featureplot of OSM gene expression
+FeaturePlot(wu, features = 'OSMR', label = T, order = T, repel = T) & scale_color_gradientn(colors = plasma(n = 10, direction = -1), limits = c(0, 3))
+
+FeaturePlot(wu, features = 'OSM', label = T, order = T, repel = T) & scale_color_gradientn(colors = plasma(n = 10, direction = -1), limits = c(0, 3))
+
+#UMAP of cancer epithelial cells labelled by subtype
+DimPlot(epi_wu, reduction = "umap")
+
+#featureplot of gene expression in malignant epithelial cells
+FeaturePlot(epi_wu, features = c('OSMR'), label = T, order = T, repel = T) & scale_color_gradientn(colors = plasma(n = 10, direction = -1), limits = c(0, 5))
+
+FeaturePlot(epi_wu, features = c('C3'), label = T, order = T, repel = T) & scale_color_gradientn(colors = plasma(n = 10, direction = -1), limits = c(0, 5))
+
+FeaturePlot(epi_wu, features = c('HIF1A'), label = T, order = T, repel = T) & scale_color_gradientn(colors = plasma(n = 10, direction = -1), limits = c(0, 5))
+
+```
+
+```{r Coexpression analysis, echo=FALSE}
+#set up COTAN object for coexpression analysis
+#extract counts file with cells columns and rows as genes
+dat<-as.matrix(epi_wu@assays$RNA@layers$counts)
+
+colnames(dat)<-Cells(epi_wu)
+rownames(dat)<-Features(epi_wu)
+
+cond <- "cancer epithelial"
+
+#initialize object
+obj2 <- automaticCOTANObjectCreation(
+  raw = dat,
+  GEO = GEO,
+  sequencingMethod = "Drop_seq",
+  sampleCondition = cond,
+  calcCoex = TRUE, optimizeForSpeed = TRUE,
+  saveObj = TRUE, outDir = outDir)
+
+#calculate gene statistics
+gdiDF <- calculateGDI(obj2)
+
+# This will store only the $GDI column
+obj2 <- storeGDI(obj2, genesGDI = gdiDF)
+
+#genelist for coexpression analysis
+genesList <- list(
+  "OSMR" = 'OSMR',
+  "Hypoxia" = c("HIF1A", "SAA2", "BNIP3", "S100P", 'SAA1', 'SOD2', 'SLC39A8', 'CCL20',
+              'CXCL1', 'IL32', 'NDRG1', 'ANGPLTL4', 'SLPI', 'CFB', 'PDZK1IP1', 'BNIP3L',
+              'C4orf3', 'LAMB3', 'SNHG16', 'PGK1'),
+  "Complement"   = c("CFB", 'C3', 'SAA1', 'CXCL1', 'CCL20')
+)
+
+#plot heatmap of coexpression
+plot(heatmapPlot(obj2, genesLists = genesList))
+genesHeatmapPlot(obj2, primaryMarkers = c("OSMR"), secondaryMarkers = c('HIF1A') )
+
+#get estimated pvalue for coexpression
+pvalue<-calculatePValue(obj2)
+pvalue_check<-as.matrix(pvalue)
+
+#format pvalues for plotting
+pval<-as.data.frame(pvalue_check[,"OSMR"]) %>%
+  arrange(desc(`pvalue_check[, "OSMR"]`)) %>%
+  rename(pval=`pvalue_check[, "OSMR"]`) %>%
+  rownames_to_column('hgnc_symbol') %>%
+  filter(hgnc_symbol %in% unlist(genesList) | hgnc_symbol =='SOCS3') %>%
+  filter(hgnc_symbol != 'OSMR')
+
+#assign significance at .001
+pval$significance[pval$pval < 0.001]='< .001'
+pval$significance[pval$pval > 0.001]=NA
+pval$log10pval=log10(pval$pval)
+pval$log10pval[pval$log10pval < -200]=-200
+
+#plot p-value of coexpression scores
+ggplot(pval, aes(y=reorder(hgnc_symbol, (-log10pval)), x=-log10pval, colour = significance)) +
+  geom_point(size=2) + theme_bw() + xlim(0,250) + geom_vline(xintercept = 3, linetype = 'dotted') + ggtitle('OSMR Coexpression') + ylab('-Log10(pvalue)')+ #scale_color_manual(na.translate=FALSE) +
+  theme(axis.text.x = element_text(size=rel(2)),
+        plot.margin = margin(10, 11, 10, 10),
+        axis.text.y = element_text(size=rel(1.5)),
+        plot.title = element_text(size = rel(2)),legend.text=element_text(size = rel(2)), axis.title = element_text(size = rel(2)),
+        legend.title=element_text(size = rel(2)),  panel.grid.minor = element_blank(), strip.text = element_text(size = rel(2)))
+```

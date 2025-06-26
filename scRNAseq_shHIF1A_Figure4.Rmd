@@ -1,0 +1,233 @@
+---
+title: "scRNAseq_shHIF1A_Analysis"
+author: "IM"
+date: "2024-10-05"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load libraries
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggpmisc)
+library(lsmeans)
+library(ComplexHeatmap)
+library(DescTools)
+library(stats)
+library(svglite)
+library(circlize)
+library(rlang)
+library(Seurat)
+library(patchwork)
+library(deMULTIplex)
+library(eulerr)
+library(enrichplot)
+
+#set ligand graphical parameters
+my_cols <- c('shSCR_EGF'='#F68282',
+             'shHIF1A_EGF'='#990000',
+             'shSCR_IFNG'='#CCB1F1',
+             'shHIF1A_IFNG'='#660066',
+             'shSCR_OSM'='#E6C122',
+             'shHIF1A_OSM'='#FF3300')
+```
+
+```{r Data, echo=FALSE}
+mcf10a.data <- Read10X(data.dir = "filtered_feature_bc_matrix/")
+
+#gene sets
+hypoxia_hallmarks<-read_tsv('Genesets/hallmarks_hypoxia.csv')
+go_complement<-read_csv('Genesets/complement_go.csv')
+hif1a_chea3<-read_csv('Genesets/hif1a_chea3.csv')
+go_hypoxia<-read_tsv('Genesets/GO_term_summary_20241007_150125.txt')
+```
+
+```{r functions, echo=FALSE}
+#function to demultiplex hash tag oligos from scRNAseq data using deMULTIplex package
+demultiplex<-function(data = mcf10a.data){
+  
+  #extract hash tag oligo data and format
+  hto<-mcf10a.data$`Antibody Capture`
+  hto_dem<-t(hto) %>%
+    as.data.frame()
+
+  #sweep through parameters
+
+  bar.table_sweep.list <- list()
+  n <- 0
+  for (q in seq(0.01, 0.99, by=0.02)) {
+    print(q)
+    n <- n + 1
+    bar.table_sweep.list[[n]] <- classifyCells(hto_dem, q=q)
+    names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
+  }
+
+  ## Identify ideal inter-maxima quantile to set barcode-specific thresholds
+  threshold.results1 <- findThresh(call.list=bar.table_sweep.list)
+  
+  #classify cells
+  round1.calls <- classifyCells(hto_dem, q=findQ(threshold.results1$res, threshold.results1$extrema))
+  neg.cells <- names(round1.calls)[which(round1.calls == "Negative")]
+  
+  ## Repeat until all no negative cells remain (usually 3 rounds)...
+  #round 2
+  bar.table <- hto_dem[-which(rownames(hto_dem) %in% neg.cells), ]
+  
+  bar.table_sweep.list <- list()
+  n <- 0
+  for (q in seq(0.01, 0.99, by=0.02)) {
+   print(q)
+    n <- n + 1
+    bar.table_sweep.list[[n]] <- classifyCells(bar.table, q=q)
+    names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
+  }
+
+  threshold.results2 <- findThresh(call.list=bar.table_sweep.list)
+  round2.calls <- classifyCells(bar.table, q=findQ(threshold.results2$res, threshold.results2$extrema))
+  neg.cells <- c(neg.cells, names(round2.calls)[which(round2.calls == "Negative")])
+
+  #round 3
+  bar.table <- hto_dem[-which(rownames(hto_dem) %in% neg.cells), ]
+
+  bar.table_sweep.list <- list()
+  n <- 0
+  for (q in seq(0.01, 0.99, by=0.02)) {
+    print(q)
+    n <- n + 1
+    bar.table_sweep.list[[n]] <- classifyCells(bar.table, q=q)
+    names(bar.table_sweep.list)[n] <- paste("q=",q,sep="")
+  }
+
+  threshold.results3 <- findThresh(call.list=bar.table_sweep.list)
+  round3.calls <- classifyCells(bar.table, q=findQ(threshold.results3$res, threshold.results3$extrema))
+  neg.cells <- c(neg.cells, names(round3.calls)[which(round3.calls == "Negative")])
+
+  final.calls <- c(round3.calls, rep("Negative",length(neg.cells)))
+  names(final.calls) <- c(names(round3.calls),neg.cells)
+  
+  #output final cell calls
+  return(final.calls)
+}
+```
+
+```{r Demultiplex Dimensional Redudction etc, echo=FALSE}
+#demultiplex HTO
+final.calls<-demultiplex(data=mcf10a.data)
+
+#create Seurat Object
+umi<-mcf10a.data$`Gene Expression`
+hto<-mcf10a.data$`Antibody Capture`
+
+joint.bcs <- intersect(colnames(umi), colnames(hto))
+
+umi <- umi[, joint.bcs]
+hto <- as.matrix(hto[, joint.bcs])
+
+mcf10a <- CreateSeuratObject(counts = umi, project = "mcf10a_shHif1a")
+
+#remove doublets and negative cells from demultiplexing
+mcf10a_dem<-mcf10a
+mcf10a_dem$HTO_classification<-final.calls
+Idents(mcf10a_dem)<-'HTO_classification'
+mcf10a_dem <- subset(mcf10a_dem, idents = "Negative", invert = TRUE)
+mcf10a_dem <- subset(mcf10a_dem, idents = "Doublet", invert = TRUE)
+
+#run standard Seurat pipeline for QC and dimensional reduction
+DefaultAssay(mcf10a_dem)<-'RNA'
+mcf10a_dem[["percent.mt"]] <- PercentageFeatureSet(mcf10a_dem, pattern = "^MT-")
+VlnPlot(mcf10a_dem, features = c("percent.mt", 'nFeature_RNA', 'nCount_RNA'), ncol = 3)
+
+#remove poor quality cells
+mcf10a_dem <- subset(mcf10a_dem, subset = nFeature_RNA > 2000 & nFeature_RNA < 7500 & percent.mt < 8)
+
+#normalize and scale data and run dimensional reduction
+mcf10a_dem <- NormalizeData(mcf10a_dem, normalization.method = "LogNormalize", scale.factor = 10000)
+mcf10a_dem <- FindVariableFeatures(mcf10a_dem)
+all.genes <- rownames(mcf10a_dem)
+mcf10a_dem <- ScaleData(mcf10a_dem, features = rownames(mcf10a_dem))
+mcf10a_dem <- RunPCA(mcf10a_dem)
+mcf10a_dem <- JackStraw(mcf10a_dem, num.replicate = 100, dims = 30)
+mcf10a_dem <- ScoreJackStraw(mcf10a_dem, dims = 1:30)
+mcf10a_dem <- FindNeighbors(mcf10a_dem, dims = 1:30)
+mcf10a_dem <- FindClusters(mcf10a_dem, resolution = 0.1)
+mcf10a_dem <- RunUMAP(mcf10a_dem, dims = 1:30)
+```
+
+```{r Basic plots, echo=FALSE}
+#UMAP of all conditions
+p<-DimPlot(mcf10a_dem, reduction = "umap", cols = my_cols)
+p$data$ident <- factor(x = pt$data$ident, levels = c('shSCR_OSM', 'shHIF1A_OSM', 'shSCR_IFNG','shHIF1A_IFNG', 'shSCR_EGF', 'shHIF1A_EGF')) # change the order of the factor levels
+plot
+
+#Vln plots
+vlnplt<-VlnPlot(mcf10a_dem, features = c("HIF1A"), cols = my_cols)
+vlnplt$data$ident <- factor(x = vlnplt$data$ident, levels = c('shSCR_OSM', 'shHIF1A_OSM', 'shSCR_IFNG','shHIF1A_IFNG', 'shSCR_EGF', 'shHIF1A_EGF')) 
+
+vlnplt<-VlnPlot(mcf10a_dem, features = c("NDRG1"), cols = my_cols)
+vlnplt$data$ident <- factor(x = vlnplt$data$ident, levels = c('shSCR_OSM', 'shHIF1A_OSM', 'shSCR_IFNG','shHIF1A_IFNG', 'shSCR_EGF', 'shHIF1A_EGF')) 
+
+vlnplt<-VlnPlot(mcf10a_dem, features = c("CA12"), cols = my_cols)
+vlnplt$data$ident <- factor(x = vlnplt$data$ident, levels = c('shSCR_OSM', 'shHIF1A_OSM', 'shSCR_IFNG','shHIF1A_IFNG', 'shSCR_EGF', 'shHIF1A_EGF')) 
+```
+
+```{r Differential gene expression analysis, echo=FALSE}
+#set idents to HTO classification
+Idents(mcf10a_dem)<-'HTO_classification'
+
+#run de gene analysis for each ligand, comparing scr hairpin to shHIF1A
+egf_up<-FindMarkers(mcf10a_dem, ident.1 = '1', ident.2 = '4', min.pct = .3, logfc.threshold = .25,  only.pos = T, test.use = 'wilcox')
+ifng_up<-FindMarkers(mcf10a_dem, ident.1 = '2', ident.2 = '5',min.pct = .3, logfc.threshold = .25, only.pos = T, test.use = 'wilcox')
+osm_up<-FindMarkers(mcf10a_dem, ident.1 = '3', ident.2 = '6',min.pct = .3, logfc.threshold = .25, only.pos = T, test.use = 'wilcox')
+
+#euler plot of shared upregulated genes
+fit<-euler(c('OSM'=79, 'EGF'= 33, 'IFNG' = 34, 'EGF&OSM' = 0, 'OSM&IFNG' = 7, 'EGF&IFNG' = 27, 
+             'OSM&EGF&IFNG' = 2))
+plot(fit, quantities = TRUE, fills = c("#E6C122", "#F68282", "#CCB1F1"), fontsize = 12)
+
+#overlap of OSM regulated HIF1A genes and canonical HIF1A genesets
+fit<-euler(c('OSM HIF1A Regulated Genes'=54, 'Hallmarks Hypoxia Geneset'= 144, 'CHEA3 HIF1A' = 260, 'OSM HIF1A Regulated Genes&Hallmarks Hypoxia Geneset' = 10, 'OSM HIF1A Regulated Genes&CHEA3 HIF1A' = 7, 
+             'Hallmarks Hypoxia Geneset&CHEA3 HIF1A' = 39, 'OSM HIF1A Regulated Genes&Hallmarks Hypoxia Geneset&CHEA3 HIF1A' = 8))
+
+eulerplt<-plot(fit,quantities = TRUE, fills = c("#E6C122", "#66CCFF", "#00CC99"), fontsize = 12)
+
+#filter to OSM conditions
+osm_filter<-subset(mcf10a_dem, idents =c('3','6'))
+
+#heatmap of top 10 upregulated genes by OSM vs shHIF1A
+DoHeatmap(subset(osm_filter, downsample = 500), features = osm_up$hgnc_symbol[1:20], size = 3, group.colors = my_cols) + theme(text = element_text(size = 14))
+
+#run gene set enrichment of OSM upregulated genes
+dbs<-c("GO_Biological_Process_2023")
+DEenrichRPlot(osm_filter, ident.1 = 'shSCR_OSM',ident.2 = 'shHIF1A_OSM', test.use = 'DESeq2', enrich.database = dbs, max.genes = 200, return.gene.list = F, balanced = F, p.val.cutoff = .5)
+
+#run GSEA using enrichGO
+#convert to ENTREZID
+osm_up_entrez <- bitr(rownames(osm_up), fromType = "SYMBOL",
+                             toType = c("ENTREZID"),
+                             OrgDb = org.Hs.eg.db)
+
+osm_up_enrichgo <- enrichGO(gene          = rownames(osm_up_entrez$ENTRIZID),
+                                             OrgDb         = org.Hs.eg.db,
+                                             ont           = c("BP"),
+                                             pAdjustMethod = "BH",
+                                             pvalueCutoff  = 0.01,
+                                             qvalueCutoff  = 0.05,
+                                             readable      = TRUE)
+
+
+osm_up_top_pathways<-osm_up_enrichgo@result %>%
+  arrange(pvalue)%>%
+  mutate(logpscore = -log(pvalue, base=10)) 
+
+#visualize with network
+edo <- pairwise_termsim(osm_up_top_pathways)
+emapplot(edo )
+
+#heatmap of complement signaling in OSM upregulated genes
+osm_complement_list<-osm_up_entrez$SYMBOL %in% go_complement$KEGG_COMPLEMENT_AND_COAGULATION_CASCADES
+
+DoHeatmap(subset(osm_filter, downsample = 500), features = osm_complement_list$SYMBOL, size = 3, group.colors = my_cols) + theme(text = element_text(size = 14))
+```

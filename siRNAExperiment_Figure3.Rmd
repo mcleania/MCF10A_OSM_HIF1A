@@ -1,0 +1,198 @@
+---
+title: "siRNAExperiment"
+author: "IM"
+date: "2023-06-05"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load libraries
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggpmisc)
+library(lsmeans)
+library(ComplexHeatmap)
+library(DescTools)
+library(stats)
+library(svglite)
+library(circlize)
+library(rlang)
+
+#set ligand graphical parameters
+my_cols <- c('EGF'='#F68282',
+             'IFNG'='#CCB1F1',
+             'OSM'='#E6C122'
+             )
+```
+
+```{r functions, echo=FALSE}
+#function to read in phenotypic quantifications from LiveCellPhenotype_Quantification_Figure1.Rmd, perform statistical testing, and construct heatmap
+phenotype_test<-function(data_rep1=pheno_dat_file1,data_rep2=pheno_dat_file2, data_rep3 = pheno_dat_file3, data_rep1_scr = pheno_dat_file_scr1, data_rep2_scr = pheno_dat_file_scr2, data_rep3_scr = pheno_dat_file_scr3, phenotype = 'Cell Count'){
+  
+  #read in three replicates of siRNA experiment, raw data for statistical testing
+  pheno_dat_run1<-read_csv(data_rep1)
+  pheno_dat_run2<-read_csv(data_rep2)
+  pheno_dat_run3<-read_csv(data_rep3)
+  
+  #SCR normalized data for plotting
+  pheno_dat_run1_scr<-read_csv(data_rep1_scr)
+  pheno_dat_run2_scr<-read_csv(data_rep2_scr)
+  pheno_dat_run3_scr<-read_csv(data_rep3_scr)
+  
+  #combine and format data
+  pheno_dat_full<-full_join(pheno_dat_run1, pheno_dat_run2) %>%
+  full_join(pheno_dat_run3) %>%
+  filter(siRNA !='WT' & siRNA != 'PLK1' & siRNA !='HIF1A_2')
+  colnames(pheno_dat_full)<-c('ligand','siRNA', phenotype)
+  
+  #calculate median value of SCR normalized data for heatmap
+  scr_1_format<-pheno_dat_run1_scr %>%
+  select(-HIF1A_2, -WT, -PLK1) %>%
+  gather(key = 'siRNA', value = as.name(phenotype), -ligand)
+  scr_2_format<-pheno_dat_run2_scr %>%
+  select(-HIF1A_2, -WT, -PLK1) %>%
+  gather(key = 'siRNA', value = as.name(phenotype), -ligand)
+  scr_3_format<-pheno_dat_run3_scr %>%
+  select(-HIF1A_2, -WT, -PLK1) %>%
+  gather(key = 'siRNA', value = as.name(phenotype), -ligand)
+
+  scr_full<-full_join(scr_1_format, scr_2_format) %>%
+  full_join(scr_3_format)
+
+  scr_full$Median = apply(scr_full[c(3:5)], 1, median, na.rm=T)
+  
+  #format scr normalized data for heatmap
+  scr_mat<-scr_full %>%
+  select(ligand, siRNA, Median) %>%
+  filter(siRNA != 'SCR') %>%
+  spread(key = siRNA, value = Median) %>%
+  mutate(ligand = factor(ligand, levels = c('EGF', 'OSM', 'IFNG'))) %>%
+  column_to_rownames('ligand') %>%
+  t %>%
+  as.data.frame() %>%
+  arrange(desc(OSM)) %>%
+  t
+
+  scr_ordered_mat<-scr_mat[c(3,2,1),]
+  
+  #run ANOVA on phenotypic metrics for each ligand seperately
+  formula=reformulate('siRNA', phenotype)
+  anova_egf<-aov(formula = formula, data = subset(pheno_dat_full, ligand == 'EGF'))
+  anova_osm<-aov(formula = formula, data = subset(pheno_dat_full, ligand == 'OSM'))
+  anova_ifng<-aov(formula = formula, data = subset(pheno_dat_full, ligand == 'IFNG'))
+
+  #pairwise t-tests for uncorrected p-values
+  pheno_dat_full$siRNA<-factor(pheno_dat_full$siRNA, levels = c('SCR',unique(pheno_dat_full$siRNA)[-10]))
+
+  pair_egf<-pairwise.t.test(x=subset(pheno_dat_full, ligand == 'EGF')[[phenotype]], g=subset(pheno_dat_full, ligand == 'EGF')$siRNA, p.adjust.method = "none")
+  pair_osm<-pairwise.t.test(x=subset(pheno_dat_full, ligand == 'OSM')[[phenotype]], g=subset(pheno_dat_full, ligand == 'OSM')$siRNA, p.adjust.method = "none")
+  pair_ifng<-pairwise.t.test(x=subset(pheno_dat_full, ligand == 'IFNG')[[phenotype]], g=subset(pheno_dat_full, ligand == 'IFNG')$siRNA, p.adjust.method = "none")
+
+  #format p values for plotting and output
+  p_combined<-data.frame(matrix(nrow = 14, ncol = 3))
+  colnames(p_combined) <- c('EGF_pvalue',  'IFNG_pvalue', 'OSM_pvalue')
+  p_combined$EGF_pvalue<-as.vector((pair_egf[["p.value"]][,1]))
+  p_combined$IFNG_pvalue<-as.vector((pair_ifng[["p.value"]][,1]))
+  p_combined$OSM_pvalue<-as.vector((pair_osm[["p.value"]][,1]))
+  rownames(p_combined)<-rownames(pair_egf[["p.value"]])
+  
+  #format for heatmap
+  p_combined<-p_combined %>%
+  t %>%
+  as.data.frame() %>%
+  select((colnames(scr_ordered_mat)))
+
+  p_combined<-p_combined[c(3,2,1),]
+
+  #heatmap of median proliferation values, with stars for significance
+  t<-Heatmap(matrix = scr_ordered_mat,
+        name = as.name(phenotype),
+        cell_fun = function(j, i, x, y, w, h, fill) {
+          if(p_combined[i, j] < 0.001) {
+            grid.text("***", x, y, gp = gpar(fontsize = 28))
+          } else if(p_combined[i, j] < 0.01) {
+            grid.text("**", x, y, gp = gpar(fontsize = 28))
+          } else if (p_combined[i, j] < 0.05) {
+            grid.text("*", x, y, gp = gpar(fontsize = 28))
+          } else{
+            grid.text('', x, y)
+          }
+        },
+        show_row_names = T,
+        show_column_names = T,
+        cluster_columns = F,
+        cluster_rows = F,
+        na_col = "grey",
+        col=colorRamp2(c(.5, 1, 1.5), c("blue", "white", "red")),
+        heatmap_legend_param = list(labels_gp = gpar(fontsize = 20),title_gp = gpar(fontsize=20)),
+        column_title_gp = gpar(fontsize = 20),
+        column_names_gp = gpar(fontsize = 20),
+        row_names_gp = gpar(fontsize = 20)) 
+
+  svglite('HM_siRNA.svg',width = 12, height = 8)
+  draw(t, heatmap_legend_side = 'right', padding = unit(c(2, 2, 2, 2), "mm"))
+  dev.off()
+}
+```
+
+```{r Heatmaps, echo=FALSE}
+#run statistical tests and create heatmaps from siRNA phenotype quantifications
+
+cellcount_hm<-phenotype_test(data_rep1 = 'siRNA_CellCount_rep1.csv', data_rep2 = 'siRNA_CellCount_rep2.csv',data_rep3 = 'siRNA_CellCount_rep3.csv',data_rep1_scr = 'siRNA_CellCount_rep1_scr.csv', data_rep2_scr = 'siRNA_CellCount_rep1_scr.csv',data_rep3_scr = 'siRNA_CellCount_rep3.csv', phenotype - 'Cell Count')
+
+motility_hm<-phenotype_test(data_rep1 = 'siRNA_motility_rep1.csv', data_rep2 = 'siRNA_motility_rep2.csv',data_rep3 = 'siRNA_motility_rep3.csv',data_rep1_scr = 'siRNA_motility_rep1_scr.csv', data_rep2_scr = 'siRNA_motility_rep1_scr.csv',data_rep3_scr = 'siRNA_motility_rep3.csv', phenotype = 'Motility')
+
+NearestNeigh_hm<-phenotype_test(data_rep1 = 'siRNA_NearestNeigh_rep1.csv', data_rep2 = 'siRNA_NearestNeigh_rep2.csv',data_rep3 = 'siRNA_NearestNeigh_rep3.csv',data_rep1_scr = 'siRNA_NearestNeigh_rep1_scr.csv', data_rep2_scr = 'siRNA_NearestNeigh_rep1_scr.csv',data_rep3_scr = 'siRNA_NearestNeigh_rep3.csv', phenotype = 'Nearest Neighbor Distance')
+
+CosineSim_hm<-phenotype_test(data_rep1 = 'siRNA_CosineSim_rep1.csv', data_rep2 = 'siRNA_CosineSim_rep2.csv',data_rep3 = 'siRNA_CosineSim_rep3.csv',data_rep1_scr = 'siRNA_CosineSim_rep1_scr.csv', data_rep2_scr = 'siRNA_CosineSim_rep1_scr.csv',data_rep3_scr = 'siRNA_CosineSim_rep3.csv', phenotype = 'Cosine Similarity')
+```
+
+```{r PCA, echo=FALSE}
+#run PCA on combined siRNA phenotype quantification
+
+#combine all phenotype data
+phenotype_dat<-full_join(proliferation_full, msd_full) %>%
+  full_join(neighbors_full) %>%
+  full_join(similarity_full) %>%
+  select(ligand, siRNA, Median_Proliferation, Median_msd, Median_neighbors,Median_similarity) %>%
+  rename(Median_Motility = Median_msd, Median_Nearest_Neighbor_Distance = Median_neighbors) %>%
+  gather(key = 'Phenotypic_Metric', value = 'Phenotype_Score', -siRNA, -ligand) %>%
+  spread(key = ligand, value = Phenotype_Score)
+
+#format data for PCA
+siRNA_pca<-phenotype_dat %>%
+  mutate(Pheno_ligand = paste0(ligand,'_', Phenotypic_Metric)) %>%
+  filter(siRNA != 'SCR' ) %>%
+  select(-ligand, -Phenotypic_Metric) %>%
+  spread(key = 'Pheno_ligand', value = 'Phenotype_Score') %>%
+  column_to_rownames('siRNA')
+
+#run PCA and extract loadings
+pca_res <- prcomp(siRNA_pca, scale. = TRUE)
+df <- as.data.frame(pca_res$x)
+df$siRNA <- rownames(df)
+PCAloadings <- data.frame(Variables = rownames(pca_res$rotation), pca_res$rotation)
+
+#plot PCA
+ggplot(df, aes(PC1, PC2)) +
+  geom_point(size = 3) +
+  geom_text(aes(label = siRNA) , vjust = 2, size = rel(5)) +
+  theme_bw() +  
+  theme(axis.text.x = element_text(angle = 0, size=rel(2)),
+        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(2)),
+        plot.title = element_text(size = rel(2)),legend.text=element_text(size = rel(1)), axis.title = element_text(size = rel(2)),
+        legend.title=element_text(size = rel(2)),  panel.grid.minor = element_blank())
+```
+
+```{r scatterplots, echo=FALSE}
+#plot phenotypic metrics ligand vs ligand in scatterplot
+ggplot(subset(ligand_vs_ligand, Phenotypic_Metric == 'Median_Motility'), aes(x=OSM, y=EGF, label = siRNA)) +
+  geom_point() + theme_bw()  +geom_text(hjust=0, vjust=0, size=5) + geom_abline(linetype = 'dashed') + coord_fixed() + xlim(c(.5,2)) + ylim(c(.5,2)) + ggtitle("Motility") +
+  theme(axis.text.x = element_text(angle = 0, size=rel(2)),
+        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(2)),
+        plot.title = element_text(size = rel(2), hjust = .5),legend.text=element_text(size = rel(1)), axis.title = element_text(size = rel(2)),
+        legend.title=element_text(size = rel(2)),  panel.grid.minor = element_blank())
+```

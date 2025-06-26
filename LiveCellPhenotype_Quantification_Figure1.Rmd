@@ -1,0 +1,542 @@
+---
+title: "LiveCellPhenotype_Quantification"
+author: "IM"
+date: "2025-01-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#load libraries
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(ggpmisc)
+library(lsmeans)
+
+#set ligand graphical parameters
+my_cols <- c('EGF'='#F68282',
+             'IFNG'='#CCB1F1',
+             'OSM'='#E6C122'
+             )
+```
+
+
+```{r functions, echo=FALSE}
+#functions for calculating phenotypic metrics for live cell imaging segmentations
+#raw data is available at (insert link)
+
+#Calculate mean squared displacement over timmecourse imaging
+computeMSD <- function(sx,sy,until=8)
+{
+  msd.t <- rep(0,until)
+  for (dt in 1:until)
+  {
+    displacement.x <- as.vector(na.omit(sx[(1+dt):length(sx)]) - sx[1:(length(sx)-dt)])
+    displacement.y <- as.vector(na.omit(sy[(1+dt):length(sy)]) - sy[1:(length(sy)-dt)])
+    sqrdispl <- (displacement.x^2 + displacement.y^2)
+    msd.t[dt] <- mean(sqrdispl)
+  }
+  return(msd.t)
+}
+
+#loop through full experiment to calculate MSD for each cell
+msd_all_images<-function(dataframe,until=8){
+  full_list<-unique(dataframe[, c('ObjectNumber', 'Metadata_Field', 'Metadata_Plate', 'Ligand')])
+  full_msd<-data.frame()
+  for (object in 1:nrow(full_list)){
+    tryCatch({object_data<-subset(dataframe, ObjectNumber == toString(full_list[object,1]) & Metadata_Field == toString(full_list[object,2]) & Metadata_Plate == toString(full_list[object,3]) & Ligand == toString(full_list[object,4]))
+    time_dat<-data.frame(time_segment = numeric())
+    for(time in 1:until){
+      time_seg = time*30
+      time_dat[time,1]<-as.numeric(time_seg)
+    }
+    print(object)
+    object_msd<-round(computeMSD(object_data$AreaShape_Center_X, object_data$AreaShape_Center_Y, until=until), digits=2)
+    object_msd_meta<-data.frame(ObjectNumber = rep(toString(full_list[object,1]), until), Metadata_Field=rep(toString(full_list[object,2]), until), Metadata_Plate=rep(toString(full_list[object,3]), until),Ligand = rep(toString(as.character(full_list[object,4])), until), time_interval = (time_dat$time_seg), MSD = (object_msd)) 
+    full_msd<-rbind(full_msd, object_msd_meta)}, error = function(e){})
+  }
+  
+  return(full_msd)
+}
+
+#Calculate the Nearest Neighbor Distance for each cell
+nearest_neighbor_dist<-function(nuc_data){
+  coord_data<-nuc_data[c(5:6)]
+  ln<-nrow(coord_data)
+  top_distances<-data.frame(firstneighbor=numeric(),secondneighbor=numeric(),thirdneighbor=numeric(),fourthneighbor=numeric())
+  
+  #search for nearest neighbor within 400 pixel square
+  for(i in 1:nrow(coord_data)){
+    point<-coord_data[i,]
+    high_bounds_x<-as.numeric(point[1] + 200)
+    low_bounds_x<-as.numeric(point[1] - 200)
+    high_bounds_y<-as.numeric(point[2] + 200)
+    low_bounds_y<-as.numeric(point[2] - 200)
+    
+    search_data<-subset(coord_data, (AreaShape_Center_X > low_bounds_x) & AreaShape_Center_X < high_bounds_x & 
+                          (AreaShape_Center_Y > low_bounds_y & AreaShape_Center_Y < high_bounds_y))
+    
+    #if four neighbors not found, expand square
+    if(nrow(search_data)<4){
+      high_bounds_x<-as.numeric(point[1] + 400)
+      low_bounds_x<-as.numeric(point[1] - 400)
+      high_bounds_y<-as.numeric(point[2] + 400)
+      low_bounds_y<-as.numeric(point[2] - 400)
+      
+      search_data<-subset(coord_data, (AreaShape_Center_X > low_bounds_x) & AreaShape_Center_X < high_bounds_x & (AreaShape_Center_Y > low_bounds_y & AreaShape_Center_Y < high_bounds_y))
+      
+      if(nrow(search_data)<4){
+        high_bounds_x<-as.numeric(point[1] + 600)
+        low_bounds_x<-as.numeric(point[1] - 600)
+        high_bounds_y<-as.numeric(point[2] + 600)
+        low_bounds_y<-as.numeric(point[2] - 600)
+        
+        search_data<-subset(coord_data, (AreaShape_Center_X > low_bounds_x) & AreaShape_Center_X < high_bounds_x & (AreaShape_Center_Y > low_bounds_y & AreaShape_Center_Y < high_bounds_y))
+        if(nrow(search_data)<4){
+          
+          search_data<-coord_data
+          
+        }}}
+    
+    #find distance to nearest neighbors
+    d<-Euclidean(search_data,point1=point)
+    sorted_d<-sort(d)
+    
+      top<-sorted_d[1:4]
+      
+      #if no neighbor found, set to maximum distance
+      top[is.na(top)]<-1344
+      top_distances[i,1:4]<-top[1:4]
+    }
+  
+  
+  return(top_distances)
+}
+
+#function for calculating displacement vectors from tracking data
+migration_displacement_vectors<-function(data =tracking_dat){
+  #prep data
+  dat_format<-tracking_data %>%
+    select(Plate,ligand, siRNA, ImageNumber, ObjectNumber, Metadata_Field, AreaShape_Center_X, AreaShape_Center_Y)
+
+  #prep output dataframe, with displacement vectors for 30-360 minutes for each cell
+  disp_out<-data.frame(ImageNumber = numeric(), ObjectNumber = numeric(), image_x_disp_30 = numeric(), image_y_disp_30 = numeric(),image_x_disp_60 = numeric(), image_y_disp_60 = numeric(),image_x_disp_120 = numeric(), image_y_disp_120 = numeric(),
+                       image_x_disp_240 = numeric(), image_y_disp_240 = numeric(),image_x_disp_360 = numeric(), image_y_disp_360 = numeric())
+  Image_Number<-length(unique(dat_format$ImageNumber))
+  
+  #loop through images and calculate vectors
+  for(Image in 1:(Image_Number)){
+    ImageNumber_cur = unique(dat_format$ImageNumber)[Image]
+    ImageNumber_30 = unique(dat_format$ImageNumber)[Image] + 1
+    ImageNumber_60 = unique(dat_format$ImageNumber)[Image] + 2
+    ImageNumber_120 = unique(dat_format$ImageNumber)[Image] + 4
+    ImageNumber_240 = unique(dat_format$ImageNumber)[Image] + 8
+    ImageNumber_360 = unique(dat_format$ImageNumber)[Image] + 16
+    
+    dat_image<-dat_format %>%
+      filter(ImageNumber == ImageNumber_cur)
+    if(nrow(dat_image)>0){
+      
+      dat_image_30<-dat_format %>%
+        filter(ImageNumber == ImageNumber_30 & ObjectNumber %in% dat_image$ObjectNumber)
+      dat_image_60<-dat_format %>%
+        filter(ImageNumber == ImageNumber_60 & ObjectNumber %in% dat_image$ObjectNumber)
+      dat_image_120<-dat_format %>%
+        filter(ImageNumber == ImageNumber_120 & ObjectNumber %in% dat_image$ObjectNumber)
+      dat_image_240<-dat_format %>%
+        filter(ImageNumber == ImageNumber_240 & ObjectNumber %in% dat_image$ObjectNumber)
+      dat_image_360<-dat_format %>%
+        filter(ImageNumber == ImageNumber_360 & ObjectNumber %in% dat_image$ObjectNumber)
+      
+      #filter out cells with no matching cell at later timepoints
+      if(nrow(dat_image_30)>0){
+        dat_image_cur_30 <- dat_image %>%
+          filter(ObjectNumber %in% dat_image_30$ObjectNumber)
+        image_x_disp_30 <- dat_image_30$AreaShape_Center_X - dat_image_cur_30$AreaShape_Center_X
+        image_y_disp_30 <- dat_image_30$AreaShape_Center_Y - dat_image_cur_30$AreaShape_Center_Y
+        curr_cell_disp_vector_30 <- as.matrix(cbind(image_x_disp_30,image_y_disp_30))
+        disp_meta_30<-cbind( dat_image_cur_30 , curr_cell_disp_vector_30)   
+      }else{
+        disp_meta_30<-dat_image
+      } 
+      if(nrow(dat_image_60>0)) {
+        dat_image_cur_60 <- dat_image %>%
+          filter(ObjectNumber %in% dat_image_60$ObjectNumber)
+        image_x_disp_60 <- dat_image_60$AreaShape_Center_X - dat_image_cur_60$AreaShape_Center_X
+        image_y_disp_60 <- dat_image_60$AreaShape_Center_Y - dat_image_cur_60$AreaShape_Center_Y
+        curr_cell_disp_vector_60 <- as.matrix(cbind(image_x_disp_60,image_y_disp_60))
+        disp_meta_60<-cbind( dat_image_cur_60 , curr_cell_disp_vector_60)   
+      }else{
+        disp_meta_60<-dat_image
+      } 
+      if(nrow(dat_image_120>0)) {
+        dat_image_cur_120 <- dat_image %>%
+          filter(ObjectNumber %in% dat_image_120$ObjectNumber)
+        image_x_disp_120 <- dat_image_120$AreaShape_Center_X - dat_image_cur_120$AreaShape_Center_X
+        image_y_disp_120 <- dat_image_120$AreaShape_Center_Y - dat_image_cur_120$AreaShape_Center_Y
+        curr_cell_disp_vector_120 <- as.matrix(cbind(image_x_disp_120,image_y_disp_120))
+        disp_meta_120<-cbind( dat_image_cur_120 , curr_cell_disp_vector_120)   
+      }else{
+        disp_meta_120<-dat_image
+      } 
+      if(nrow(dat_image_240>0)) {
+        dat_image_cur_240 <- dat_image %>%
+          filter(ObjectNumber %in% dat_image_240$ObjectNumber)
+        image_x_disp_240 <- dat_image_240$AreaShape_Center_X - dat_image_cur_240$AreaShape_Center_X
+        image_y_disp_240 <- dat_image_240$AreaShape_Center_Y - dat_image_cur_240$AreaShape_Center_Y
+        curr_cell_disp_vector_240 <- as.matrix(cbind(image_x_disp_240,image_y_disp_240))
+        disp_meta_240<-cbind( dat_image_cur_240 , curr_cell_disp_vector_240)   
+      }
+      else{
+        disp_meta_240<-dat_image
+      } 
+      if(nrow(dat_image_360>0)) {
+        dat_image_cur_360 <- dat_image %>%
+          filter(ObjectNumber %in% dat_image_360$ObjectNumber)
+        image_x_disp_360 <- dat_image_360$AreaShape_Center_X - dat_image_cur_360$AreaShape_Center_X
+        image_y_disp_360 <- dat_image_360$AreaShape_Center_Y - dat_image_cur_360$AreaShape_Center_Y
+        curr_cell_disp_vector_360 <- as.matrix(cbind(image_x_disp_360,image_y_disp_360))
+        disp_meta_360<-cbind( dat_image_cur_360 , curr_cell_disp_vector_360)   
+      }  
+      else{
+        disp_meta_360<-dat_image
+      } 
+      
+      #combine displacement vectors
+      disp_meta<- full_join(dat_image,disp_meta_30) %>%
+        full_join(disp_meta_60) %>%
+        full_join(disp_meta_120) %>%
+        full_join(disp_meta_240) %>%
+        full_join(disp_meta_360)
+      
+      disp_out<-full_join(disp_out, disp_meta) 
+      
+      }else{
+        #if no matching cell found, set displacement vectors to NA
+      disp_meta<-dat_image
+      disp_meta$image_x_disp_30<-NA
+      disp_meta$image_y_disp_60<-NA
+      disp_meta$image_x_disp_120<-NA
+      disp_meta$image_y_disp_240<-NA
+      disp_meta$image_x_disp_360<-NA
+      
+      disp_out<-(full_join(disp_out, disp_meta))     
+      
+    }}
+  
+  return(disp_out)
+}
+
+#function for calculating cosine similarity from displacement vectors
+similarity_by_image<-function(dat =displacement_vectors ){
+  similarity_out = data.frame(ID = character(), similarity_mean = numeric())
+  
+  #for each cell calculate similarity in displacement vectors per image
+  for(indicator in 1:length(unique(dat$identifier))){
+  image_dat<-filter(dat, identifier==unique(dat$identifier)[indicator])
+  
+  if(nrow(image_dat)>1){
+    
+    #calculate nearest neighbors for each cell using KNN
+    NN_mat <- image_dat %>%
+      ungroup() %>%
+      select(AreaShape_Center_X, AreaShape_Center_Y) %>%
+      as.matrix()
+    
+    NN_object<- kNN(NN_mat, k = 5)
+    NN_id <- NN_object$id
+    
+    #calculate the cosine similarity between neighboring cells
+    image_mean<-vector()
+    for(cell in 1:nrow(NN_id)){
+      cell_cur<-image_dat[cell,]
+      neigh_cells<-image_dat[NN_id[cell,],]
+      similarity_matrix <- cosine(t(rbind(cell_cur, neigh_cells)[9:13]))
+      diag(similarity_matrix)=NA
+      
+      #average cosine similarity to neighboring cells
+      similarity_mean <-mean(similarity_matrix, na.rm = T)
+  
+      image_mean[cell]=similarity_mean
+    }
+  }
+  similarity_out[indicator,1]=(image_dat$identifier[1])
+  similarity_out[indicator,2]=mean(image_mean, na.rm = T)
+  }
+  return(similarity_out)
+  
+}
+```
+
+
+```{r live cell imaging analysis, echo=FALSE}
+#read in live cell tracking data
+full_meta<-read_csv('OSMEGFIFNG_LCimagingTracks.csv')
+
+#QC to filter out small tracks < 10 time intervals (<2.5 Hrs)  
+track_lengths<-full_meta %>%
+  group_by(ObjectNumber, Metadata_Field, Metadata_Plate) %>%
+  summarise(track_length=n())
+
+#Eliminate tracks less then 10 images, these are likely tracking images or cells entering/leaving the field
+full_tracks<-track_lengths %>%
+  filter(track_length > 10)%>%
+  mutate(object_id = paste0(Metadata_Field,'_', Metadata_Plate,'_',ObjectNumber))
+
+full_meta_long<-full_meta %>%
+  mutate(object_id = paste0(Metadata_Field,'_', Metadata_Plate,'_',ObjectNumber)) %>%
+  filter(object_id %in% full_tracks$object_id)
+```
+
+```{r Caculate CellCount, echo=F}
+#reformat data
+cell_numbers<-full_meta %>%
+  mutate(time = (ImageNumber-1)*30) %>%
+  mutate(Well = gsub('_.*','',Metadata_Field)) %>%
+  group_by(time,Well,Ligand, Metadata_Field, Metadata_Plate) %>%
+  summarise(cell_counts = n()) %>%
+  mutate(hours = time/60)
+
+#normalize to time zero
+cell_numbers_t0<-cell_numbers %>%
+  filter(hours==0) %>%
+  group_by(time,Well,Ligand, Metadata_Field, Metadata_Plate) %>%
+  summarise(t0_well_cell_count = mean(cell_counts)) %>%
+  ungroup() %>%
+  select(Well,Ligand, Metadata_Plate,Metadata_Field,t0_well_cell_count)
+
+cell_numbers_normed<-left_join(cell_numbers, cell_numbers_t0) %>%
+  mutate(Relative_Cell_Count = cell_counts / t0_well_cell_count)
+
+#Ligand summarized cell number
+cell_numbers_trt<-cell_numbers_normed %>%
+  group_by(Ligand, hours) %>%
+  summarize(Average_Relative_Cell_Count = mean(Relative_Cell_Count), cell_count_sd = sd(Relative_Cell_Count))   %>%
+  mutate(trt_cell_count_ci = 1.96*cell_count_sd) 
+
+#Plot Ligand summarised cell counts
+ggplot((cell_numbers_trt), aes(x=hours, y = Average_Relative_Cell_Count, group = ligand, color = ligand)) + scale_color_manual(values = my_cols) +
+  geom_line(linewidth = 2) + ylab('Cell Count') + xlab('Time (hrs)') + scale_x_continuous(breaks=c(6,12,18,24,30,36,42,48)) + expand_limits(x = 54) +
+  labs(color = 'Ligand') + theme_bw() + geom_ribbon(aes(ymin = Average_Relative_Cell_Count - cell_count_sd, ymax = Average_Relative_Cell_Count + cell_count_sd), linetype=3, alpha=0.1) +
+  theme(axis.text.x = element_text(angle = 0, size=rel(3)),
+        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(3)),
+        plot.title = element_text(size = rel(3)),legend.text=element_text(size = rel(1)), axis.title = element_text(size = rel(3)),
+        legend.title=element_text(size = rel(2)),  panel.grid.minor = element_blank()) +
+  geom_label(aes(label = label, x=label_x, y = label_y,),alpha = 1, size = 10,
+             na.rm = TRUE)
+```
+
+```{r Quantify Motility, echo=FALSE}
+#QC filter cells that travel unreasonable distances (>400um / hr)
+all_cells_qc_filtered<-full_meta_long %>%
+  group_by(ObjectNumber, Metadata_Field, Metadata_Plate, Ligand) %>%
+  mutate(max_dist = max(distance_diff)) %>%
+  filter(max_dist < 200)
+
+#calculate mean squared displacement on QC filtered Cells
+msd<-msd_all_images(all_cells_qc_filtered, until = 12) 
+
+#calculate median MSD by replicate
+msd_avg<-msd %>%
+  group_by( time_interval, Ligand) %>%
+  mutate(msd_cell_sd = sd(MSD)) %>%
+  summarize(median_replicate_msd = mean(MSD), well_msd_sd = mean(msd_cell_sd))  %>%
+  mutate(field_msd_ci = 1.96*well_msd_sd) %>%
+  mutate(time_interval_hours = time_interval / 60)
+
+#compute slope of MSD 
+m.interaction <- msd_avg %>% group_by(Metadata_Plate, Ligand) %>% 
+  summarise( mod = list(lm(median_replicate_msd ~ time_interval))) 
+
+#obtain slopes using linear model
+m.lst <- lstrends(m.interaction, "Ligand", var="time_interval")
+slopes<-as.data.frame(m.lst)
+
+#plot Ligand summarised MSD
+msd_trt<-msd %>%
+  group_by(time_interval, Ligand) %>%
+  summarize(trt_average_msd = mean(MSD), trt_msd_sd = se(MSD)) %>%
+  mutate(trt_msd_ci = 1.96*trt_msd_sd) %>%
+  mutate(time_interval_hours = time_interval / 60) %>%
+  mutate(label = if_else(time_interval_hours == 6, as.character(Ligand), NA_character_))%>%
+  mutate(label_x = if_else(time_interval_hours == 6, 7, NA)) %>%
+  mutate(label_y = if_else(time_interval_hours == 6, 7, NA)) 
+
+#plot MSD
+ggplot((msd_trt), aes(x=(time_interval_hours), y = (trt_average_msd), group = ligand, color = ligand)) + scale_color_manual(values = my_cols) +
+  geom_line(linewidth = 2) + ylab('MSD (Mean Squared Displacement)') + xlab('Time Interval (hrs)') + scale_x_continuous(breaks=c(0,1,2,3,4,5,6)) + # scale_alpha_manual(values = c(.1,.1,.1,1,.1,.1,.1,.1)) +
+  labs(color = 'Ligand') + theme_bw() +geom_ribbon(aes(ymin = (trt_average_msd) - (trt_msd_ci), ymax = (trt_average_msd) + (trt_msd_ci)), linetype=3, alpha=0.1) + expand_limits(x=7) +
+  theme(axis.text.x = element_text(angle = 0, size=rel(3)),
+        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(3)),
+        plot.title = element_text(size = rel(3)),legend.text=element_text(size = rel(1)), axis.title = element_text(size = rel(3)),
+        legend.title=element_text(size = rel(2)),  panel.grid.minor = element_blank()) +
+  geom_label(aes(label = label, x=label_x, y = label_y,),alpha = 1, size = 10,
+             na.rm = TRUE)
+
+```
+
+```{r NearestNeighborDistance, echo=FALSE}
+#calculate Nearest Neighbor Distance
+near_neigh<-full_meta %>%
+  group_by(ImageNumber, Metadata_Field, Metadata_Plate, Ligand) %>%
+  do(data.frame(., e=nearest_neighbor_dist(.)))
+
+#summarised to replicate and normalized based on uniform distribution of cells
+near_neigh_well<-near_neigh %>%
+  group_by(ImageNumber, Metadata_Plate, Ligand, Metadata_Field) %>%
+  mutate(time = (ImageNumber-1)*30) %>%
+  mutate(hours = time / 60) %>%
+  ungroup() %>%
+  group_by(hours, Metadata_Plate, Ligand, Metadata_Field) %>%
+  summarise(second_nearest_neighbor_fld = median(e.secondneighbor), cell_count_field = n()) %>%
+  #calculate the Null model of expected distance based on a random distribution then normalize the distances
+  mutate(size=1408*1040) %>%
+  mutate(null=.5/sqrt(cell_count_field/size)) %>%
+  mutate(count_normed_neighbor = second_nearest_neighbor_fld / null) %>%
+  ungroup() %>%
+  group_by(hours, Metadata_Plate, Ligand) %>%
+  summarise(second_nearest_neighbor_normed = median(count_normed_neighbor)) 
+
+#summarise to Ligand
+near_neigh_trt <-near_neigh %>%
+  group_by(ImageNumber, Metadata_Plate, Ligand) %>%
+  mutate(time = (ImageNumber-1)*30) %>%
+  mutate(hours = time / 60) %>%
+  ungroup() %>%
+  group_by( Ligand, hours) %>%
+  summarise(second_nearest_neighbor_trt = median(e.secondneighbor), trt_neighbor_sd = se(e.secondneighbor)) %>%
+  mutate(trt_neighbor_ci = 1.96*trt_neighbor_sd) %>%
+  mutate(label = if_else(hours == 24, as.character(Ligand), NA_character_))%>%
+  mutate(label_x = if_else(hours == 6, 7, NA)) %>%
+  mutate(label_y = if_else(hours == 6, 7, NA)) 
+
+ggplot((near_neigh_trt), aes(x=count_normed_neighbor,y=(ligand), group = ligand, fill = ligand )) + scale_fill_manual(values = my_cols) +
+  coord_flip() +
+  geom_boxplot(outlier.shape = NA) + xlab('Nearest Neighbor Distance') +  theme_bw() + ylab('Ligand') +
+  theme(axis.text.x = element_text(angle = 0, size=rel(3)),
+        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(3)),
+        plot.title = element_text(size = rel(3)),legend.text=element_text(size = rel(1)), axis.title = element_text(size = rel(3)),
+        legend.title=element_text(size = rel(2)),  panel.grid.minor = element_blank())
+```
+
+```{r Cosine Similarity, echo=FALSE}
+#calculate displacement vectors for all cells
+displ_vectors<- full_meta %>%
+  group_by(Plate, ligand, siRNA, Metadata_Field) %>%
+  do(data.frame(., e=migration_displacement_vectors(.)))
+
+#prep displacement vectors and filter out cells without displacement vectors
+similarity_input<-displ_vectors %>%
+  filter(ImageNumber %in% seq(from =1, to = 97, by = 6)) %>%
+  #give each cell an identifier
+  mutate(identifier = paste0(ImageNumber,  Metadata_Field, ligand, siRNA, Plate)) %>%
+  filter(!is.na(e.image_x_disp_30) & !is.na(e.image_y_disp_30)) %>%
+  filter(!is.na(e.image_x_disp_60) & !is.na(e.image_y_disp_60)) 
+  
+#calculate similarity
+similarity<-similarity_by_image(similarity_input)
+
+#summarise to image
+similarity_image_summary <- similarity %>%
+  group_by(ImageNumber, siRNA, ligand, Plate) %>%
+  summarise(median_similarity = median(similarity_mean))
+
+#similarity across all times
+similarity_summary <- similarity_test_out_summary %>%
+  group_by(siRNA, ligand, Plate) %>%
+  summarise(median_similarity = mean(median_similarity))
+
+#quantify WT cosine similarity and calculate confidence interval
+similarity_trt <- similarity_summary  %>%
+  filter(siRNA == 'WT') %>%
+  mutate(hours = (ImageNumber-1)/2) %>%
+  group_by(ligand, hours) %>%
+  summarize(Average_similarity = mean(median_similarity), median_similarity_sd = se(median_similarity)) %>%
+  mutate(trt_median_similarity_ci = 1.96*median_similarity_sd) 
+
+#plot similarity by Ligand
+ggplot((similarity_trt), aes(x=hours, y = Average_similarity, group = ligand, color = ligand)) + scale_color_manual(values = my_cols) +
+  geom_line(linewidth = 2) + ylab('Motility Similarity') + xlab('Time (hrs)') + scale_x_continuous(breaks=c(6,12,18,24,30,36)) + expand_limits(x = 41) +
+  labs(color = 'Ligand') + theme_bw() + geom_ribbon(aes(ymin = Average_similarity - median_similarity_sd, ymax = Average_similarity + median_similarity_sd), linetype=3, alpha=0.1) +
+  theme(axis.text.x = element_text(angle = 0, size=rel(3)),
+        axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(3)),
+        plot.title = element_text(size = rel(3)),legend.text=element_text(size = rel(1)), axis.title = element_text(size = rel(3)),
+        legend.title=element_text(size = rel(2)),  panel.grid.minor = element_blank()) +
+  geom_label(aes(label = label, x=label_x, y = label_y,),alpha = 1, size = 10,
+             na.rm = TRUE)
+```
+
+```{r Statistical Tests and Heatmap, echo=FALSE}
+#run ANOVA on all phenotypic metrics
+cellcount_anova<-aov(Relative_Cell_Count ~ Ligand, data = cell_numbers_normed)
+motility_anova<-aov(Motility ~ Ligand, data = slopes )
+neighbors_anova<-aov(second_nearest_neighbor_normed ~ Ligand, data = near_neigh_well)
+similarity_anova<-aov(median_similarity ~ Ligand, data = similarity_summary)
+
+#dunnett's test for post hoc analysis of contrasts
+cellcount_dunn<-DunnettTest(x=cell_numbers_normed$Relative_Cell_Count, g=cell_numbers_normed$Ligand, control = 'EGF')
+motility_dunn<-DunnettTest(x=slopes$Motility, g=slopes$Ligand, control = 'EGF')
+neighbors_dunn<-DunnettTest(x=near_neigh_well$second_nearest_neighbor_normed, g=near_neigh_well$Ligand, control = 'EGF')
+similarity_dunn<-DunnettTest(x=similarity_summary$median_similarity, g=similarity_summary$Ligand, control = 'EGF')
+
+#combine p values from Dunnett's test 
+dunn_combine<-data.frame(matrix(nrow = 3, ncol = 4))
+colnames(dunn_combine) <- c('Prolif_pvalue',  'MSD_pvalue', 'Neighbor_pvalue', 'similarity_pvalue')
+rownames(dunn_combine)<-c('EGF', 'IFNG', 'OSM')
+
+#set p value of EGF (control) to 1
+dunn_combine[1,]=1 
+
+#add pvalues from test
+dunn_combine[2:3,1]=((cellcount_dunn$EGF[,4]))
+dunn_combine[2:3,2]=((motility_dunn$EGF[,4]))
+dunn_combine[2:3,3]=((neighbors_dunn$EGF[,4]))
+dunn_combine[2:3,4]=((similarity_dunn$EGF[,4]))
+
+#put together all metrics
+wt_alltogether<-full_join(cell_numbers_normed, slopes) %>%
+  full_join(near_neigh_well) %>%
+  full_join(similarity_summary)%>%
+  column_to_rownames('ligand') 
+
+#normalize by EGF condition
+wt_egf<-wt_alltogether[1,]
+wt_alltogether_normed<-wt_alltogether
+wt_alltogether_normed[1,]=wt_alltogether_normed[1,]/wt_egf
+wt_alltogether_normed[2,]=wt_alltogether_normed[2,]/wt_egf
+wt_alltogether_normed[3,]=wt_alltogether_normed[3,]/wt_egf
+
+#plot heatmap with p-values from dunnett's test
+colnames(wt_alltogether_normed) <- c('Proliferation', 'Motility', 'Nearest Neighbor Dist', 'Motility Similarity')
+
+#heatmap of median neighbors values, with stars for significance
+t<-Heatmap(matrix = wt_alltogether_normed,
+           name = "Phen",
+           cell_fun = function(j, i, x, y, w, h, fill) {
+             if(dunn_combine[i, j] < 0.001) {
+               grid.text("***", x, y, gp = gpar(fontsize = 28))
+             } else if(dunn_combine[i, j] < 0.01) {
+               grid.text("**", x, y, gp = gpar(fontsize = 28))
+             } else if (dunn_combine[i, j] < 0.05) {
+               grid.text("*", x, y, gp = gpar(fontsize = 28))
+             } else{
+               grid.text('', x, y)
+             }
+           },
+           show_row_names = T,
+           show_column_names = T,
+           cluster_columns = F,
+           cluster_rows = F,
+           na_col = "grey",
+           col=colorRamp2(c(0, 1, 2), c("blue", "white", "red")),
+           column_title_gp = gpar(fontsize = 23,fontfamily="Arial"),
+           column_names_gp = gpar(fontsize = 20,fontfamily="Arial"),
+           rect_gp = gpar(col = "black", lwd = 1),
+           row_names_gp = gpar(fontsize = 20,fontfamily="Arial"),
+           heatmap_legend_param = list(labels_gp = gpar(fontsize = 20),title_gp = gpar(fontsize=20)),
+         ) 
+
+```
