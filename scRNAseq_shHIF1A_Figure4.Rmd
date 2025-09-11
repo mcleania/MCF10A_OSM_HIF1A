@@ -42,7 +42,7 @@ mcf10a.data <- Read10X(data.dir = "filtered_feature_bc_matrix/")
 hypoxia_hallmarks<-read_tsv('Genesets/hallmarks_hypoxia.csv')
 go_complement<-read_csv('Genesets/complement_go.csv')
 hif1a_chea3<-read_csv('Genesets/hif1a_chea3.csv')
-go_hypoxia<-read_tsv('Genesets/GO_term_summary_20241007_150125.txt')
+go_hypoxia<-read_tsv('Genesets/hypoxia_go.txt')
 ```
 
 ```{r functions, echo=FALSE}

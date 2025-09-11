@@ -26,7 +26,7 @@ my_cols <- c('EGF'='#F68282',
 
 ```{r functions, echo=FALSE}
 #functions for calculating phenotypic metrics for live cell imaging segmentations
-#raw data is available at (insert link)
+#raw data is available at Zenodo: 10.5281/zenodo.17101147
 
 #Calculate mean squared displacement over timmecourse imaging
 computeMSD <- function(sx,sy,until=8)
@@ -274,7 +274,7 @@ similarity_by_image<-function(dat =displacement_vectors ){
 
 ```{r live cell imaging analysis, echo=FALSE}
 #read in live cell tracking data
-full_meta<-read_csv('OSMEGFIFNG_LCimagingTracks.csv')
+full_meta<-read_csv('Data/OSMEGFIFNG_LCimagingTracks.csv')
 
 #QC to filter out small tracks < 10 time intervals (<2.5 Hrs)  
 track_lengths<-full_meta %>%
