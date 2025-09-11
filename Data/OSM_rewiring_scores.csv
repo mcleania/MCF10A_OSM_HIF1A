@@ -1,0 +1,404 @@
+Dn-Score (degree corrected),DyNet Rewiring (Dn-score),Edge Count,IFNG_pos.sif_present,name,osm_pos.sif_present,selected,shared name
+0.5000000000000001,1.0000000000000002,2,FALSE,BCL3,TRUE,FALSE,BCL3
+0.5,2,4,FALSE,EGFR,TRUE,FALSE,EGFR
+0.29230769230769227,18.999999999999996,65,TRUE,STAT3,TRUE,FALSE,STAT3
+0.1666666666666667,1.0000000000000002,6,TRUE,REL,TRUE,FALSE,REL
+0.33333333333333326,2.9999999999999996,9,TRUE,CCL2,TRUE,FALSE,CCL2
+0.25000000000000006,1.0000000000000002,4,TRUE,ETS2,TRUE,FALSE,ETS2
+0.25,0.5,2,TRUE,CSF3R,TRUE,FALSE,CSF3R
+0.5,17,34,FALSE,NFKB1,TRUE,FALSE,NFKB1
+0.2727272727272727,1,1,TRUE,IRF1,TRUE,FALSE,IRF1
+0.5,0.5,1,FALSE,ITGA1,TRUE,FALSE,ITGA1
+0.5000000000000001,16.000000000000004,32,FALSE,CTNNB1,TRUE,FALSE,CTNNB1
+0.5,10.5,21,FALSE,CEBPB,TRUE,FALSE,CEBPB
+0.49999999999999994,1.4999999999999998,3,FALSE,CRP,TRUE,FALSE,CRP
+0.5000000000000001,5.000000000000001,10,FALSE,VEGFA,TRUE,FALSE,VEGFA
+0.49999999999999994,1.4999999999999998,3,FALSE,S1PR1,TRUE,FALSE,S1PR1
+0.5000000000000001,1.0000000000000002,2,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_8d5ccd53044cb99fe072c67ed436d816 http://pathwaycommons.org/pc2/TemplateReaction_3e9299f961b625be01c83c3f3be38b21,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_8d5ccd53044cb99fe072c67ed436d816 http://pathwaycommons.org/pc2/TemplateReaction_3e9299f961b625be01c83c3f3be38b21
+0.5,0.5,1,FALSE,PLA2G2A,TRUE,FALSE,PLA2G2A
+0.3529411764705882,11.999999999999998,34,TRUE,TP73,TRUE,FALSE,TP73
+0.1666666666666667,1.0000000000000002,6,TRUE,PML,TRUE,FALSE,PML
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_ef0422b4d9184df6a8d8363d30cdb213 http://pathwaycommons.org/pc2/TemplateReactionRegulation_2da9853c5c086011719c77785455ba60,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_ef0422b4d9184df6a8d8363d30cdb213 http://pathwaycommons.org/pc2/TemplateReactionRegulation_2da9853c5c086011719c77785455ba60
+0.49999999999999994,1.4999999999999998,3,TRUE,IRF7,TRUE,FALSE,IRF7
+0.3333333333333334,1.0000000000000002,3,TRUE,SOD2,TRUE,FALSE,SOD2
+0.20000000000000004,1.0000000000000002,5,TRUE,IRF9,TRUE,FALSE,IRF9
+0.3333333333333333,2,6,TRUE,CDKN1B,TRUE,FALSE,CDKN1B
+0.37499999999999994,1,16,TRUE,TBL1X,TRUE,FALSE,TBL1X
+0.49999999999999994,1.4999999999999998,3,FALSE,AXIN2,TRUE,FALSE,AXIN2
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_5a437a98b57cc20516103f2f1380bf84 http://pathwaycommons.org/pc2/TemplateReaction_86b3c545445ec2ad95726f73e6ca43cd,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_5a437a98b57cc20516103f2f1380bf84 http://pathwaycommons.org/pc2/TemplateReaction_86b3c545445ec2ad95726f73e6ca43cd
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_eca5136f849229f5d1cf1198cf30549f http://pathwaycommons.org/pc2/TemplateReactionRegulation_fdfeca25dc73e232e8fde73cb697160e,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_eca5136f849229f5d1cf1198cf30549f http://pathwaycommons.org/pc2/TemplateReactionRegulation_fdfeca25dc73e232e8fde73cb697160e
+0.5,0.5,1,FALSE,SERPINB1,TRUE,FALSE,SERPINB1
+0.2916666666666667,3.5000000000000004,12,TRUE,CEBPD,TRUE,FALSE,CEBPD
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_d7069befc5424edf07df79098ca797a5 http://pathwaycommons.org/pc2/TemplateReaction_7a3f9bb98d2d169ceb005ac922fd6c15 http://identifiers.org/reactome/R-HSA-6790036 http://identifiers.org/reactome/R-HSA-6797258,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_d7069befc5424edf07df79098ca797a5 http://pathwaycommons.org/pc2/TemplateReaction_7a3f9bb98d2d169ceb005ac922fd6c15 http://identifiers.org/reactome/R-HSA-6790036 http://identifiers.org/reactome/R-HSA-6797258
+0.4,2,5,TRUE,GADD45B,TRUE,FALSE,GADD45B
+0.5000000000000001,1.0000000000000002,2,FALSE,RUNX2,TRUE,FALSE,RUNX2
+0.5,0.5,1,FALSE,SERPINA3,TRUE,FALSE,SERPINA3
+0.5000000000000001,1.0000000000000002,2,FALSE,PRKCH,TRUE,FALSE,PRKCH
+0.3333333333333333,2,6,TRUE,ICAM1,TRUE,FALSE,ICAM1
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_8cc80569783b2ccaa85e3204ac2cea94 http://pathwaycommons.org/pc2/TemplateReactionRegulation_67d47d2406d3674def277e7b276f90ed,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_8cc80569783b2ccaa85e3204ac2cea94 http://pathwaycommons.org/pc2/TemplateReactionRegulation_67d47d2406d3674def277e7b276f90ed
+0.5,0.5,1,FALSE,ERG,TRUE,FALSE,ERG
+0.5,8,16,FALSE,EPAS1,TRUE,FALSE,EPAS1
+0.49999999999999994,1.4999999999999998,3,FALSE,SLC2A1,TRUE,FALSE,SLC2A1
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_cad9ab6c65497bc7f8bff28099c6ed84 http://pathwaycommons.org/pc2/TemplateReaction_b9f1dfc28c1c1cc0edf62910922c8766,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_cad9ab6c65497bc7f8bff28099c6ed84 http://pathwaycommons.org/pc2/TemplateReaction_b9f1dfc28c1c1cc0edf62910922c8766
+0.5,0.5,1,FALSE,PLD1,TRUE,FALSE,PLD1
+0.5,0.5,1,FALSE,TNFRSF11B,TRUE,FALSE,TNFRSF11B
+0.5,17,34,FALSE,HIF1A,TRUE,FALSE,HIF1A
+0,0,1,TRUE,http://identifiers.org/reactome/R-HSA-6790036 http://identifiers.org/reactome/R-HSA-6797258,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-6790036 http://identifiers.org/reactome/R-HSA-6797258
+0.49999999999999994,5,3,FALSE,JUN,TRUE,FALSE,JUN
+0.25,0.5,2,TRUE,EBF1,TRUE,FALSE,EBF1
+0,0,1,TRUE,http://identifiers.org/reactome/R-HSA-977295 http://identifiers.org/reactome/R-HSA-977271,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-977295 http://identifiers.org/reactome/R-HSA-977271
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-977290 http://identifiers.org/reactome/R-HSA-977271,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-977290 http://identifiers.org/reactome/R-HSA-977271
+0.5000000000000001,1.0000000000000002,2,FALSE,MYD88,TRUE,FALSE,MYD88
+0.5000000000000001,1.0000000000000002,2,FALSE,CA9,TRUE,FALSE,CA9
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-1235035 http://pathwaycommons.org/pc2/TemplateReaction_abbedcd19675149f5474feab2fb048ea http://identifiers.org/reactome/R-HSA-1235075 http://pathwaycommons.org/pc2/TemplateReactionRegulation_69e02b8c8ffaa93c387552784a250520,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-1235035 http://pathwaycommons.org/pc2/TemplateReaction_abbedcd19675149f5474feab2fb048ea http://identifiers.org/reactome/R-HSA-1235075 http://pathwaycommons.org/pc2/TemplateReactionRegulation_69e02b8c8ffaa93c387552784a250520
+0.5,4.5,9,FALSE,JUNB,TRUE,FALSE,JUNB
+0.5,0.5,1,FALSE,HBP1,TRUE,FALSE,HBP1
+0.5000000000000001,1.0000000000000002,2,FALSE,BCL2A1,TRUE,FALSE,BCL2A1
+0.5,2,4,FALSE,KDR,TRUE,FALSE,KDR
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f6aa898f93a8b92320af7fee7a7a90a7 http://pathwaycommons.org/pc2/TemplateReaction_9926d2cacf7311bd5f9269bec54b19fe,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f6aa898f93a8b92320af7fee7a7a90a7 http://pathwaycommons.org/pc2/TemplateReaction_9926d2cacf7311bd5f9269bec54b19fe
+0.5,0.5,1,FALSE,RGL1,TRUE,FALSE,RGL1
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-1989777 http://identifiers.org/reactome/R-HSA-1989822,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-1989777 http://identifiers.org/reactome/R-HSA-1989822
+0.5,0.5,1,FALSE,PIK3R1,TRUE,FALSE,PIK3R1
+0,0,1,TRUE,http://identifiers.org/reactome/R-HSA-6790041 http://identifiers.org/reactome/R-HSA-6797261,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-6790041 http://identifiers.org/reactome/R-HSA-6797261
+0.5,0.5,1,FALSE,DAPK1,TRUE,FALSE,DAPK1
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_3bdded3012b3f777b9eb8c2877d74d81 http://pathwaycommons.org/pc2/TemplateReactionRegulation_f18118014971049facff6ef3d11d6c4c,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_3bdded3012b3f777b9eb8c2877d74d81 http://pathwaycommons.org/pc2/TemplateReactionRegulation_f18118014971049facff6ef3d11d6c4c
+0.25,2,8,TRUE,STAT5A,TRUE,FALSE,STAT5A
+0.5,0.5,1,FALSE,HK2,TRUE,FALSE,HK2
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_3aaf8ad38edd309096a37b0f0ddd2b5c http://pathwaycommons.org/pc2/TemplateReaction_ba335c7f75be329f2393577f7992c31e,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_3aaf8ad38edd309096a37b0f0ddd2b5c http://pathwaycommons.org/pc2/TemplateReaction_ba335c7f75be329f2393577f7992c31e
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-3858384 http://identifiers.org/reactome/R-HSA-381337,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-3858384 http://identifiers.org/reactome/R-HSA-381337
+0.41666666666666674,2.5000000000000004,6,TRUE,ABCA1,TRUE,FALSE,ABCA1
+0.3333333333333334,1.0000000000000002,3,TRUE,http://identifiers.org/reactome/R-HSA-1989820 http://identifiers.org/reactome/R-HSA-1989765,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-1989820 http://identifiers.org/reactome/R-HSA-1989765
+0.5000000000000001,1.0000000000000002,2,FALSE,CITED2,TRUE,FALSE,CITED2
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_37586c8a2bc6e89dfb976c55475dccb7 http://pathwaycommons.org/pc2/TemplateReactionRegulation_13309e8a99c8e0d9db32de92e5533fe6,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_37586c8a2bc6e89dfb976c55475dccb7 http://pathwaycommons.org/pc2/TemplateReactionRegulation_13309e8a99c8e0d9db32de92e5533fe6
+0.49999999999999994,2,1,FALSE,TP63,TRUE,FALSE,TP63
+0.5,0.5,1,FALSE,RRAD,TRUE,FALSE,RRAD
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_e61861cadd459ad6a256da40fe25d5a0 http://pathwaycommons.org/pc2/TemplateReaction_15de2b986ecd5a5925ba74fe73c71ccc,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_e61861cadd459ad6a256da40fe25d5a0 http://pathwaycommons.org/pc2/TemplateReaction_15de2b986ecd5a5925ba74fe73c71ccc
+0.29999999999999993,1.4999999999999998,5,TRUE,NFKBIA,TRUE,FALSE,NFKBIA
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_15879cd5a48c8082356cdf5ed116d7aa http://pathwaycommons.org/pc2/TemplateReaction_6d58f7c4f5bd4cdc25b382084ed9d253 http://pathwaycommons.org/pc2/TemplateReactionRegulation_29de3063ae60c1f5550a655423c62f58 http://pathwaycommons.org/pc2/TemplateReaction_9508b745c2c8e17bf91803766bc5d42e,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_15879cd5a48c8082356cdf5ed116d7aa http://pathwaycommons.org/pc2/TemplateReaction_6d58f7c4f5bd4cdc25b382084ed9d253 http://pathwaycommons.org/pc2/TemplateReactionRegulation_29de3063ae60c1f5550a655423c62f58 http://pathwaycommons.org/pc2/TemplateReaction_9508b745c2c8e17bf91803766bc5d42e
+0.16666666666666666,0.5,3,TRUE,IRF2,TRUE,FALSE,IRF2
+0,0,2,TRUE,TAP1,TRUE,FALSE,TAP1
+0.37499999999999994,1.4999999999999998,4,TRUE,DDIT3,TRUE,FALSE,DDIT3
+0.5,0.5,1,FALSE,TFRC,TRUE,FALSE,TFRC
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_da2c41dca0720174205585bdc4d8decf http://pathwaycommons.org/pc2/TemplateReactionRegulation_c740ea9654a5c80d02d06285ec985c86,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_da2c41dca0720174205585bdc4d8decf http://pathwaycommons.org/pc2/TemplateReactionRegulation_c740ea9654a5c80d02d06285ec985c86
+0.5000000000000001,1.0000000000000002,2,FALSE,FLOT2,TRUE,FALSE,FLOT2
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_de4b8e6dba870ffcfb3361210effd875 http://pathwaycommons.org/pc2/TemplateReaction_bfa0cf37b01b5f5a745c1f99f64b11c8,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_de4b8e6dba870ffcfb3361210effd875 http://pathwaycommons.org/pc2/TemplateReaction_bfa0cf37b01b5f5a745c1f99f64b11c8
+0.5,0.5,1,FALSE,NEDD4L,TRUE,FALSE,NEDD4L
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_38a2ef13a4be51e4202897128894e87d http://pathwaycommons.org/pc2/TemplateReactionRegulation_e6c8e8449f609e4aa7495543eb27e338,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_38a2ef13a4be51e4202897128894e87d http://pathwaycommons.org/pc2/TemplateReactionRegulation_e6c8e8449f609e4aa7495543eb27e338
+0.5,0.5,1,FALSE,ENPP2,TRUE,FALSE,ENPP2
+0.49999999999999994,1.4999999999999998,3,FALSE,GJA1,TRUE,FALSE,GJA1
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f2e8812bd7f07e2a5364b3e02d7819fb http://pathwaycommons.org/pc2/TemplateReaction_8e167fd2a1a2e05ae290734f19b22e83,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f2e8812bd7f07e2a5364b3e02d7819fb http://pathwaycommons.org/pc2/TemplateReaction_8e167fd2a1a2e05ae290734f19b22e83
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_c71257b9f135d1b7056a7b89fe037318 http://pathwaycommons.org/pc2/TemplateReaction_15746ade026d10261ad7311a6931976b,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_c71257b9f135d1b7056a7b89fe037318 http://pathwaycommons.org/pc2/TemplateReaction_15746ade026d10261ad7311a6931976b
+0.49999999999999994,1.4999999999999998,3,FALSE,MMP14,TRUE,FALSE,MMP14
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_44ba3f2983356e7dea063125312f8fdd http://pathwaycommons.org/pc2/TemplateReactionRegulation_99aa3d326d5de402fff02938053f05f2,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_44ba3f2983356e7dea063125312f8fdd http://pathwaycommons.org/pc2/TemplateReactionRegulation_99aa3d326d5de402fff02938053f05f2
+0.5000000000000001,1.0000000000000002,2,FALSE,GFAP,TRUE,FALSE,GFAP
+0.5,0.5,1,FALSE,VCAN,TRUE,FALSE,VCAN
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_8c19f9b3ad289c6d0bbd2d82c10b39ad http://pathwaycommons.org/pc2/TemplateReaction_e1e4920b1505f7d5722181a9b2507d9d,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_8c19f9b3ad289c6d0bbd2d82c10b39ad http://pathwaycommons.org/pc2/TemplateReaction_e1e4920b1505f7d5722181a9b2507d9d
+0.125,0.5,4,TRUE,BIRC3,TRUE,FALSE,BIRC3
+0.25,0.5,2,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_fed714640ead0e0a8cdebae4e14e7c29 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e3b27bd58dfe91a0569f98c0e5688803,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_fed714640ead0e0a8cdebae4e14e7c29 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e3b27bd58dfe91a0569f98c0e5688803
+0.5000000000000001,1.0000000000000002,2,FALSE,CD36,TRUE,FALSE,CD36
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-560517 http://identifiers.org/reactome/R-HSA-1989789,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-560517 http://identifiers.org/reactome/R-HSA-1989789
+0.5000000000000001,1.0000000000000002,2,FALSE,JAG1,TRUE,FALSE,JAG1
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_41b226df8f5336429d17e117d6ca9cf1 http://pathwaycommons.org/pc2/TemplateReactionRegulation_8a0a2673b4291e380815629adcff414c,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_41b226df8f5336429d17e117d6ca9cf1 http://pathwaycommons.org/pc2/TemplateReactionRegulation_8a0a2673b4291e380815629adcff414c
+0.25,0.5,2,TRUE,ZFP36,TRUE,FALSE,ZFP36
+0.3333333333333334,1.0000000000000002,3,TRUE,CASP1,TRUE,FALSE,CASP1
+0.25,0.5,2,TRUE,http://identifiers.org/reactome/R-HSA-6798081 http://identifiers.org/reactome/R-HSA-6798105,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-6798081 http://identifiers.org/reactome/R-HSA-6798105
+0.5,0.5,1,FALSE,BNIP3,TRUE,FALSE,BNIP3
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_624aa453bf4406669774ee66796ea1bc http://pathwaycommons.org/pc2/TemplateReactionRegulation_c90fd7dd1f283027da16e2c6cfc5ae37,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_624aa453bf4406669774ee66796ea1bc http://pathwaycommons.org/pc2/TemplateReactionRegulation_c90fd7dd1f283027da16e2c6cfc5ae37
+0.5000000000000001,1.0000000000000002,2,FALSE,ITGB4,TRUE,FALSE,ITGB4
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_c077813d7ffb276162a1a25428b3c4f2 http://pathwaycommons.org/pc2/TemplateReactionRegulation_3f162524e7ceabe98cae6d79e78d21ad,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_c077813d7ffb276162a1a25428b3c4f2 http://pathwaycommons.org/pc2/TemplateReactionRegulation_3f162524e7ceabe98cae6d79e78d21ad
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_38f2680a2498147d11fbfdbe82389a5c http://pathwaycommons.org/pc2/TemplateReaction_78a157d91d9f979487c087e06ac59543,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_38f2680a2498147d11fbfdbe82389a5c http://pathwaycommons.org/pc2/TemplateReaction_78a157d91d9f979487c087e06ac59543
+0.3333333333333334,1.0000000000000002,3,TRUE,ACSL1,TRUE,FALSE,ACSL1
+0.3333333333333334,1.0000000000000002,3,TRUE,http://identifiers.org/reactome/R-HSA-1989787 http://identifiers.org/reactome/R-HSA-1989778 http://identifiers.org/reactome/R-HSA-1989815,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-1989787 http://identifiers.org/reactome/R-HSA-1989778 http://identifiers.org/reactome/R-HSA-1989815
+0.41666666666666674,4,6,TRUE,FOSL2,TRUE,FALSE,FOSL2
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f2e8812bd7f07e2a5364b3e02d7819fb http://pathwaycommons.org/pc2/TemplateReaction_a5f4d9b1c41d96788da91311cb2092da http://pathwaycommons.org/pc2/TemplateReaction_8e167fd2a1a2e05ae290734f19b22e83 http://pathwaycommons.org/pc2/TemplateReactionRegulation_76a6217adaf2c9ccd148bb9bf22a0095,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f2e8812bd7f07e2a5364b3e02d7819fb http://pathwaycommons.org/pc2/TemplateReaction_a5f4d9b1c41d96788da91311cb2092da http://pathwaycommons.org/pc2/TemplateReaction_8e167fd2a1a2e05ae290734f19b22e83 http://pathwaycommons.org/pc2/TemplateReactionRegulation_76a6217adaf2c9ccd148bb9bf22a0095
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b169a9487c581695ee2ba5cc8d0eacbf http://pathwaycommons.org/pc2/TemplateReaction_a4ded2061ec7fa3ca30d7d060b5d1b80,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b169a9487c581695ee2ba5cc8d0eacbf http://pathwaycommons.org/pc2/TemplateReaction_a4ded2061ec7fa3ca30d7d060b5d1b80
+0.5,0.5,1,FALSE,CSF1,TRUE,FALSE,CSF1
+0,0,1,TRUE,RORC,TRUE,FALSE,RORC
+0.5,0.5,1,FALSE,DST,TRUE,FALSE,DST
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b6535c50010f398a7d6a0e9386927380 http://pathwaycommons.org/pc2/TemplateReactionRegulation_1f53b991e08687e8f55b3fdab6dfcb36 http://pathwaycommons.org/pc2/TemplateReaction_a5349ec66220c9ee06e11de26a1cf27a http://pathwaycommons.org/pc2/TemplateReaction_4419483422ce3db13adcbfd5d216f8f2,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b6535c50010f398a7d6a0e9386927380 http://pathwaycommons.org/pc2/TemplateReactionRegulation_1f53b991e08687e8f55b3fdab6dfcb36 http://pathwaycommons.org/pc2/TemplateReaction_a5349ec66220c9ee06e11de26a1cf27a http://pathwaycommons.org/pc2/TemplateReaction_4419483422ce3db13adcbfd5d216f8f2
+0,0,3,TRUE,IFIT3,TRUE,FALSE,IFIT3
+0.5,0.5,1,FALSE,HSD11B1,TRUE,FALSE,HSD11B1
+0.5,0.5,1,FALSE,GRHL1,TRUE,FALSE,GRHL1
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-1989748 http://identifiers.org/reactome/R-HSA-1989826,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-1989748 http://identifiers.org/reactome/R-HSA-1989826
+0.3333333333333334,1.0000000000000002,3,TRUE,SAA1,TRUE,FALSE,SAA1
+0.5,0.5,1,FALSE,DIO2,TRUE,FALSE,DIO2
+0.5000000000000001,1.0000000000000002,2,TRUE,HSD17B2,TRUE,FALSE,HSD17B2
+0.5000000000000001,3.5000000000000004,7,FALSE,ESR1,TRUE,FALSE,ESR1
+0.25000000000000006,1.0000000000000002,4,TRUE,MUC1,TRUE,FALSE,MUC1
+0.5,0.5,1,FALSE,IFITM1,TRUE,FALSE,IFITM1
+0.5000000000000001,1.0000000000000002,2,FALSE,CXCL1,TRUE,FALSE,CXCL1
+0.49999999999999994,1.4999999999999998,3,FALSE,ESR2,TRUE,FALSE,ESR2
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_fd5d3aa64e77cd46c799c82a648ed0a5 http://pathwaycommons.org/pc2/TemplateReaction_838821e6846463ed5ed597c2773e39e1,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_fd5d3aa64e77cd46c799c82a648ed0a5 http://pathwaycommons.org/pc2/TemplateReaction_838821e6846463ed5ed597c2773e39e1
+0.5,0.5,1,FALSE,F2R,TRUE,FALSE,F2R
+0,0,1,TRUE,http://identifiers.org/reactome/R-HSA-6797262 http://identifiers.org/reactome/R-HSA-6789615 http://identifiers.org/reactome/R-HSA-6797264,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-6797262 http://identifiers.org/reactome/R-HSA-6789615 http://identifiers.org/reactome/R-HSA-6797264
+0.5,0.5,1,FALSE,PKM,TRUE,FALSE,PKM
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_25b498507e2bb8999810ef33f9e36b4c http://pathwaycommons.org/pc2/TemplateReactionRegulation_cc700f78d11c4740c0739e484b095b36,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_25b498507e2bb8999810ef33f9e36b4c http://pathwaycommons.org/pc2/TemplateReactionRegulation_cc700f78d11c4740c0739e484b095b36
+0.5000000000000001,1.0000000000000002,2,FALSE,CISH,TRUE,FALSE,CISH
+0.5000000000000001,1.0000000000000002,2,FALSE,SAA2,TRUE,FALSE,SAA2
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_10bb887d72b8f3ed9a177121246a0c8f http://pathwaycommons.org/pc2/TemplateReaction_8f29ca151cbbb804107954b626e6d78f,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_10bb887d72b8f3ed9a177121246a0c8f http://pathwaycommons.org/pc2/TemplateReaction_8f29ca151cbbb804107954b626e6d78f
+0.5,0.5,1,FALSE,CHRNE,TRUE,FALSE,CHRNE
+0.5,0.5,1,FALSE,EFNA1,TRUE,FALSE,EFNA1
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_837c2a7f4811232b0d4f87543d5e7230 http://pathwaycommons.org/pc2/TemplateReactionRegulation_5d1c0b84767c865a8afb20988aa5be3e,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_837c2a7f4811232b0d4f87543d5e7230 http://pathwaycommons.org/pc2/TemplateReactionRegulation_5d1c0b84767c865a8afb20988aa5be3e
+0.25,0.5,2,TRUE,TNFAIP3,TRUE,FALSE,TNFAIP3
+0.5000000000000001,1.0000000000000002,2,FALSE,ADM,TRUE,FALSE,ADM
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_812b5ee90b6df48b517ed9383b056086 http://pathwaycommons.org/pc2/TemplateReactionRegulation_30702951bfd9ec3e2435b71f05f502a1,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_812b5ee90b6df48b517ed9383b056086 http://pathwaycommons.org/pc2/TemplateReactionRegulation_30702951bfd9ec3e2435b71f05f502a1
+0.20000000000000004,1.0000000000000002,5,TRUE,IL18R1,TRUE,FALSE,IL18R1
+0.25,0.5,2,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_c36815c2675271340bda6851a223f766 http://pathwaycommons.org/pc2/TemplateReactionRegulation_56e4398c9bc488d30ef8983dd5af331a,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_c36815c2675271340bda6851a223f766 http://pathwaycommons.org/pc2/TemplateReactionRegulation_56e4398c9bc488d30ef8983dd5af331a
+0.5000000000000001,1.0000000000000002,2,FALSE,BHLHE40,TRUE,FALSE,BHLHE40
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_36e01178afe8fd9d255af894a4191983 http://pathwaycommons.org/pc2/TemplateReaction_3c735507f5111864685f3c1c47fff67d,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_36e01178afe8fd9d255af894a4191983 http://pathwaycommons.org/pc2/TemplateReaction_3c735507f5111864685f3c1c47fff67d
+0.5000000000000001,1.0000000000000002,2,FALSE,PPARGC1A,TRUE,FALSE,PPARGC1A
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-560517 http://identifiers.org/reactome/R-HSA-560540,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-560517 http://identifiers.org/reactome/R-HSA-560540
+0.5,0.5,1,FALSE,HDAC5,TRUE,FALSE,HDAC5
+0.5,0.5,1,FALSE,NAMPT,TRUE,FALSE,NAMPT
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_86ea7d8f54ef07171799be46e3b8e766 http://pathwaycommons.org/pc2/TemplateReactionRegulation_246e17b1e5a5f06dad7296a86696cee1,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_86ea7d8f54ef07171799be46e3b8e766 http://pathwaycommons.org/pc2/TemplateReactionRegulation_246e17b1e5a5f06dad7296a86696cee1
+0.5,0.5,1,FALSE,CXCR2,TRUE,FALSE,CXCR2
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_0e2e7f11aacc37c1a365da469efdd834 http://pathwaycommons.org/pc2/TemplateReaction_b3c78f242211e1425d9c95f86c66aef4,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_0e2e7f11aacc37c1a365da469efdd834 http://pathwaycommons.org/pc2/TemplateReaction_b3c78f242211e1425d9c95f86c66aef4
+0.5,0.5,1,FALSE,TNFRSF21,TRUE,FALSE,TNFRSF21
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-1989771 http://identifiers.org/reactome/R-HSA-1989790,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-1989771 http://identifiers.org/reactome/R-HSA-1989790
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_905151553c1ae60b275f17382935dc82 http://identifiers.org/reactome/R-HSA-1235080 http://identifiers.org/reactome/R-HSA-1235037 http://pathwaycommons.org/pc2/TemplateReaction_2269e177b5008a8dadcb1d4b147ec4de,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_905151553c1ae60b275f17382935dc82 http://identifiers.org/reactome/R-HSA-1235080 http://identifiers.org/reactome/R-HSA-1235037 http://pathwaycommons.org/pc2/TemplateReaction_2269e177b5008a8dadcb1d4b147ec4de
+0.2857142857142857,2,7,TRUE,STAT2,TRUE,FALSE,STAT2
+0.5,0.5,1,FALSE,UGCG,TRUE,FALSE,UGCG
+0.25,2,8,TRUE,STAT4,TRUE,FALSE,STAT4
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_4d3b619c690be419eee3f7a3d1c08156 http://pathwaycommons.org/pc2/TemplateReactionRegulation_264952c1daa0053c315fb232be1d91d5,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_4d3b619c690be419eee3f7a3d1c08156 http://pathwaycommons.org/pc2/TemplateReactionRegulation_264952c1daa0053c315fb232be1d91d5
+0.3333333333333334,1.0000000000000002,3,TRUE,ETV6,TRUE,FALSE,ETV6
+0.5,0.5,1,FALSE,IL4R,TRUE,FALSE,IL4R
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_e6a23f9163227ec68be1b4d3fbef082c http://pathwaycommons.org/pc2/TemplateReactionRegulation_522ae828f927ed4b403b0c763adbe430,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_e6a23f9163227ec68be1b4d3fbef082c http://pathwaycommons.org/pc2/TemplateReactionRegulation_522ae828f927ed4b403b0c763adbe430
+0,0,1,TRUE,CHI3L1,TRUE,FALSE,CHI3L1
+0.5,0.5,1,FALSE,ARL4A,TRUE,FALSE,ARL4A
+0.5000000000000001,1.0000000000000002,2,TRUE,TLR3,TRUE,FALSE,TLR3
+0.5000000000000001,1.0000000000000002,2,TRUE,TLR2,TRUE,FALSE,TLR2
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b3097bc274551d3ad8b28f02c6a69bdb http://pathwaycommons.org/pc2/TemplateReaction_8d9708fc69e18fd35cedc6875acc78ee,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b3097bc274551d3ad8b28f02c6a69bdb http://pathwaycommons.org/pc2/TemplateReaction_8d9708fc69e18fd35cedc6875acc78ee
+0,5,0,FALSE,TIMP1,TRUE,FALSE,TIMP1
+0.5,0.5,1,FALSE,IL1RAP,TRUE,FALSE,IL1RAP
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b3c1f018299829fd5c533fc53b42dbdb http://pathwaycommons.org/pc2/TemplateReaction_5363abd92a7be36ab18f5f8cac64c32c,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b3c1f018299829fd5c533fc53b42dbdb http://pathwaycommons.org/pc2/TemplateReaction_5363abd92a7be36ab18f5f8cac64c32c
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_78000186fcfea699c69e087a98a8be2c http://pathwaycommons.org/pc2/TemplateReactionRegulation_1701802f5243fd1d20c393b8065e521a,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_78000186fcfea699c69e087a98a8be2c http://pathwaycommons.org/pc2/TemplateReactionRegulation_1701802f5243fd1d20c393b8065e521a
+0.5,0.5,1,FALSE,CTSB,TRUE,FALSE,CTSB
+0.25,0.5,2,TRUE,PRDM1,TRUE,FALSE,PRDM1
+0.5,0.5,1,FALSE,NDRG1,TRUE,FALSE,NDRG1
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_e588ebd632f13fbd003e6af7855bc6a7 http://pathwaycommons.org/pc2/TemplateReaction_4884f2911cf8c4fef91dcf2bb81944f7,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_e588ebd632f13fbd003e6af7855bc6a7 http://pathwaycommons.org/pc2/TemplateReaction_4884f2911cf8c4fef91dcf2bb81944f7
+0.20000000000000004,1.0000000000000002,5,TRUE,BCL6,TRUE,FALSE,BCL6
+0.5000000000000001,1.0000000000000002,2,TRUE,CFLAR,TRUE,FALSE,CFLAR
+0.5,0.5,1,FALSE,RAB38,TRUE,FALSE,RAB38
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_1bb7ab0472e7972f08c3bbda1c88f606 http://pathwaycommons.org/pc2/TemplateReaction_9916007f785ca97452f0659f51a47d66,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_1bb7ab0472e7972f08c3bbda1c88f606 http://pathwaycommons.org/pc2/TemplateReaction_9916007f785ca97452f0659f51a47d66
+0.25,0.5,2,TRUE,SOCS3,TRUE,FALSE,SOCS3
+0,0,1,TRUE,http://identifiers.org/reactome/R-HSA-6790041 http://identifiers.org/reactome/R-HSA-8955885 http://pathwaycommons.org/pc2/TemplateReactionRegulation_3d5cdda40412a4ff1df4eda43aff6ea9 http://identifiers.org/reactome/R-HSA-6797261 http://identifiers.org/reactome/R-HSA-8848176 http://pathwaycommons.org/pc2/TemplateReaction_142b4cb4374b22c435c5a2baf33c63cd,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-6790041 http://identifiers.org/reactome/R-HSA-8955885 http://pathwaycommons.org/pc2/TemplateReactionRegulation_3d5cdda40412a4ff1df4eda43aff6ea9 http://identifiers.org/reactome/R-HSA-6797261 http://identifiers.org/reactome/R-HSA-8848176 http://pathwaycommons.org/pc2/TemplateReaction_142b4cb4374b22c435c5a2baf33c63cd
+0.5,0.5,1,FALSE,CFI,TRUE,FALSE,CFI
+0.25,0.5,2,TRUE,FGG,TRUE,FALSE,FGG
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_60ab5c872b22de099284ee3309edd4c6 http://pathwaycommons.org/pc2/TemplateReaction_4438c1afe7c31ccb962ca64756aa3410,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_60ab5c872b22de099284ee3309edd4c6 http://pathwaycommons.org/pc2/TemplateReaction_4438c1afe7c31ccb962ca64756aa3410
+0.5,0.5,1,FALSE,ARID3A,TRUE,FALSE,ARID3A
+0.25,0.5,2,TRUE,CLCA2,TRUE,FALSE,CLCA2
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7dce37f2dc99f6dcf654e18badcb9ba5 http://pathwaycommons.org/pc2/TemplateReaction_46ff4e745b89a4ec1de3e100289655ea,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7dce37f2dc99f6dcf654e18badcb9ba5 http://pathwaycommons.org/pc2/TemplateReaction_46ff4e745b89a4ec1de3e100289655ea
+0.5,0.5,1,FALSE,CD44,TRUE,FALSE,CD44
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_21b5fce82031081c7cde6ae216936ced http://pathwaycommons.org/pc2/TemplateReactionRegulation_f2bf211803619a80e44e06a067243903,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_21b5fce82031081c7cde6ae216936ced http://pathwaycommons.org/pc2/TemplateReactionRegulation_f2bf211803619a80e44e06a067243903
+0.5,0.5,1,FALSE,MME,TRUE,FALSE,MME
+0,0,1,TRUE,PSMB9,TRUE,FALSE,PSMB9
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_287c989e5e08bda4a61aef1a9661dd8a http://pathwaycommons.org/pc2/TemplateReactionRegulation_2b9bcad591700617503b204b0ecb5db0,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_287c989e5e08bda4a61aef1a9661dd8a http://pathwaycommons.org/pc2/TemplateReactionRegulation_2b9bcad591700617503b204b0ecb5db0
+0,0,1,TRUE,NNMT,TRUE,FALSE,NNMT
+0.5,0.5,1,FALSE,NOX4,TRUE,FALSE,NOX4
+0.5,0.5,1,FALSE,HP,TRUE,FALSE,HP
+0.5,0.5,1,FALSE,PFKFB3,TRUE,FALSE,PFKFB3
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_aacf7d1399be150313a03db620450c94 http://pathwaycommons.org/pc2/TemplateReactionRegulation_51f02e8706447004379cacb58661f620,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_aacf7d1399be150313a03db620450c94 http://pathwaycommons.org/pc2/TemplateReactionRegulation_51f02e8706447004379cacb58661f620
+0.5000000000000001,1.0000000000000002,2,FALSE,LBP,TRUE,FALSE,LBP
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7172fdd61929fa7bb8205843c76d7adc http://identifiers.org/reactome/R-HSA-6797262 http://identifiers.org/reactome/R-HSA-6789615 http://identifiers.org/reactome/R-HSA-6797264 http://pathwaycommons.org/pc2/TemplateReaction_753440638b5e82e346e7f926144c4b72,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7172fdd61929fa7bb8205843c76d7adc http://identifiers.org/reactome/R-HSA-6797262 http://identifiers.org/reactome/R-HSA-6789615 http://identifiers.org/reactome/R-HSA-6797264 http://pathwaycommons.org/pc2/TemplateReaction_753440638b5e82e346e7f926144c4b72
+0.5000000000000001,1.0000000000000002,2,FALSE,C3,TRUE,FALSE,C3
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_a0ff18fb8e6e5a03dd0aaad9a09673b9 http://pathwaycommons.org/pc2/TemplateReactionRegulation_4e07e1e0122fceb0385731204252325a,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_a0ff18fb8e6e5a03dd0aaad9a09673b9 http://pathwaycommons.org/pc2/TemplateReactionRegulation_4e07e1e0122fceb0385731204252325a
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_9ae8411c4e95f93327c13e5066f0ba83 http://pathwaycommons.org/pc2/TemplateReactionRegulation_19d3c303c78fdd4981feb09819c6d5b5 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e64a34783a13b4ed0c2bd3969130c376 http://pathwaycommons.org/pc2/TemplateReaction_ced07c102ebe57051aa5e8c63a4ad5cf http://pathwaycommons.org/pc2/TemplateReaction_c3c00acdfe42df49568baecee79a9b52 http://pathwaycommons.org/pc2/TemplateReactionRegulation_7dbd1876d077d3020a0c580767a95a0c,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_9ae8411c4e95f93327c13e5066f0ba83 http://pathwaycommons.org/pc2/TemplateReactionRegulation_19d3c303c78fdd4981feb09819c6d5b5 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e64a34783a13b4ed0c2bd3969130c376 http://pathwaycommons.org/pc2/TemplateReaction_ced07c102ebe57051aa5e8c63a4ad5cf http://pathwaycommons.org/pc2/TemplateReaction_c3c00acdfe42df49568baecee79a9b52 http://pathwaycommons.org/pc2/TemplateReactionRegulation_7dbd1876d077d3020a0c580767a95a0c
+0.5,0.5,1,FALSE,CP,TRUE,FALSE,CP
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_14e6dcbf1823ede948afffce5d2911d1 http://pathwaycommons.org/pc2/TemplateReactionRegulation_2a5ec488471cc38e888416b06781a145,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_14e6dcbf1823ede948afffce5d2911d1 http://pathwaycommons.org/pc2/TemplateReactionRegulation_2a5ec488471cc38e888416b06781a145
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_a7fbe03d17057e9e9e448f33578c36e6 http://pathwaycommons.org/pc2/TemplateReactionRegulation_75ac32f6f4aa46bb631c02ed72f4d50e http://pathwaycommons.org/pc2/TemplateReaction_ed14da64761eaa8e7ede78c6e84c73a9 http://pathwaycommons.org/pc2/TemplateReaction_57c3d90c85c9c18dfda684eddfe29f80 http://pathwaycommons.org/pc2/TemplateReaction_e7ea30b2d6b0acd067d95ed8a7d5eb85 http://pathwaycommons.org/pc2/TemplateReactionRegulation_1861dc49c08826484d2d333534289211,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_a7fbe03d17057e9e9e448f33578c36e6 http://pathwaycommons.org/pc2/TemplateReactionRegulation_75ac32f6f4aa46bb631c02ed72f4d50e http://pathwaycommons.org/pc2/TemplateReaction_ed14da64761eaa8e7ede78c6e84c73a9 http://pathwaycommons.org/pc2/TemplateReaction_57c3d90c85c9c18dfda684eddfe29f80 http://pathwaycommons.org/pc2/TemplateReaction_e7ea30b2d6b0acd067d95ed8a7d5eb85 http://pathwaycommons.org/pc2/TemplateReactionRegulation_1861dc49c08826484d2d333534289211
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_bedf59b9ab7819bd318292c7aeda6ac9 http://pathwaycommons.org/pc2/TemplateReactionRegulation_81517de3b54931bd6317716988eddfe4,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_bedf59b9ab7819bd318292c7aeda6ac9 http://pathwaycommons.org/pc2/TemplateReactionRegulation_81517de3b54931bd6317716988eddfe4
+0,0,1,TRUE,TNFRSF1B,TRUE,FALSE,TNFRSF1B
+0,0,1,TRUE,http://identifiers.org/reactome/R-HSA-6797259 http://identifiers.org/reactome/R-HSA-6790022,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-6797259 http://identifiers.org/reactome/R-HSA-6790022
+0.5000000000000001,1.0000000000000002,2,FALSE,SLC2A3,TRUE,FALSE,SLC2A3
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_42f45021c9aa05f964087766fde22d4b http://pathwaycommons.org/pc2/TemplateReaction_c847b95dc8dbafd8274bebd8cfe958e1,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_42f45021c9aa05f964087766fde22d4b http://pathwaycommons.org/pc2/TemplateReaction_c847b95dc8dbafd8274bebd8cfe958e1
+0.5,0.5,1,FALSE,MMP3,TRUE,FALSE,MMP3
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_740842679a05ce13058bc3daaf356062 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e96e4a8fa8362c3b463b563eb9c557fe http://pathwaycommons.org/pc2/TemplateReaction_cb97981bd59b62c2d6559f76677a98f3 http://pathwaycommons.org/pc2/TemplateReaction_1d5ec232ab975bf27a998ad69eaf6a22,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_740842679a05ce13058bc3daaf356062 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e96e4a8fa8362c3b463b563eb9c557fe http://pathwaycommons.org/pc2/TemplateReaction_cb97981bd59b62c2d6559f76677a98f3 http://pathwaycommons.org/pc2/TemplateReaction_1d5ec232ab975bf27a998ad69eaf6a22
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_458ac2531de9d2bdff99a30eed2bce5d http://pathwaycommons.org/pc2/TemplateReaction_97b430c755f81930ffa149baae1d2fb3,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_458ac2531de9d2bdff99a30eed2bce5d http://pathwaycommons.org/pc2/TemplateReaction_97b430c755f81930ffa149baae1d2fb3
+0.16666666666666666,0.5,3,TRUE,TNFSF10,TRUE,FALSE,TNFSF10
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_e4c13e2a8f16d6deec0acf5b5c6bb030 http://pathwaycommons.org/pc2/TemplateReaction_b4eac12f618ffc7038eb80c5c04259b6 http://identifiers.org/reactome/R-HSA-4411372 http://pathwaycommons.org/pc2/TemplateReactionRegulation_5a437a98b57cc20516103f2f1380bf84 http://pathwaycommons.org/pc2/TemplateReaction_2332b095625894ab6057563a68f7dacb http://identifiers.org/reactome/R-HSA-4411395 http://pathwaycommons.org/pc2/TemplateReactionRegulation_1cf0e25fbc045011e043315f64e4b494 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e37c4012660cc0595f75494d849c634b http://pathwaycommons.org/pc2/TemplateReaction_86b3c545445ec2ad95726f73e6ca43cd http://pathwaycommons.org/pc2/TemplateReactionRegulation_c0e56177436829c05e48934d0ef03336 http://pathwaycommons.org/pc2/TemplateReactionRegulation_14abd1cc50d5e668693841713880f651 http://pathwaycommons.org/pc2/TemplateReaction_07444717e3725f75e59958d4d4f14c58,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_e4c13e2a8f16d6deec0acf5b5c6bb030 http://pathwaycommons.org/pc2/TemplateReaction_b4eac12f618ffc7038eb80c5c04259b6 http://identifiers.org/reactome/R-HSA-4411372 http://pathwaycommons.org/pc2/TemplateReactionRegulation_5a437a98b57cc20516103f2f1380bf84 http://pathwaycommons.org/pc2/TemplateReaction_2332b095625894ab6057563a68f7dacb http://identifiers.org/reactome/R-HSA-4411395 http://pathwaycommons.org/pc2/TemplateReactionRegulation_1cf0e25fbc045011e043315f64e4b494 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e37c4012660cc0595f75494d849c634b http://pathwaycommons.org/pc2/TemplateReaction_86b3c545445ec2ad95726f73e6ca43cd http://pathwaycommons.org/pc2/TemplateReactionRegulation_c0e56177436829c05e48934d0ef03336 http://pathwaycommons.org/pc2/TemplateReactionRegulation_14abd1cc50d5e668693841713880f651 http://pathwaycommons.org/pc2/TemplateReaction_07444717e3725f75e59958d4d4f14c58
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_e295f538a08c8d28f2ed016aa2d130e6 http://pathwaycommons.org/pc2/TemplateReactionRegulation_c7102208681f484090c486182a7f9ee0,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_e295f538a08c8d28f2ed016aa2d130e6 http://pathwaycommons.org/pc2/TemplateReactionRegulation_c7102208681f484090c486182a7f9ee0
+0.25,0.5,2,TRUE,AKT1,TRUE,FALSE,AKT1
+0.5,0.5,1,FALSE,CCL20,TRUE,FALSE,CCL20
+0.25,0.5,2,TRUE,ADA,TRUE,FALSE,ADA
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_68fea8d38f8cc3fc010b26ebe4a1cab5 http://pathwaycommons.org/pc2/TemplateReactionRegulation_6f63efe8e316cc4d6246a7999010b331 http://pathwaycommons.org/pc2/TemplateReaction_e711c2995b06a596bd3c0f22ec3a208e http://pathwaycommons.org/pc2/TemplateReaction_de91e541bad7fee24db1a459f8984ab8,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_68fea8d38f8cc3fc010b26ebe4a1cab5 http://pathwaycommons.org/pc2/TemplateReactionRegulation_6f63efe8e316cc4d6246a7999010b331 http://pathwaycommons.org/pc2/TemplateReaction_e711c2995b06a596bd3c0f22ec3a208e http://pathwaycommons.org/pc2/TemplateReaction_de91e541bad7fee24db1a459f8984ab8
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_c8a1d4c0782ea308b6841b68b16d69a1 http://identifiers.org/reactome/R-HSA-1235080 http://identifiers.org/reactome/R-HSA-1235037 http://pathwaycommons.org/pc2/TemplateReaction_ef005f3f8d29fc772ea51902895bdc22,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_c8a1d4c0782ea308b6841b68b16d69a1 http://identifiers.org/reactome/R-HSA-1235080 http://identifiers.org/reactome/R-HSA-1235037 http://pathwaycommons.org/pc2/TemplateReaction_ef005f3f8d29fc772ea51902895bdc22
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_49f5c50d739d96502ede9b6e5ae33087 http://pathwaycommons.org/pc2/TemplateReactionRegulation_7f834ff673f8a8a525b17c7760a85d5c,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_49f5c50d739d96502ede9b6e5ae33087 http://pathwaycommons.org/pc2/TemplateReactionRegulation_7f834ff673f8a8a525b17c7760a85d5c
+0.5,0.5,1,FALSE,SNAI1,TRUE,FALSE,SNAI1
+0.5,0.5,1,FALSE,IL1R1,TRUE,FALSE,IL1R1
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f7e788300ca0d0d621871f700bb5fdac http://pathwaycommons.org/pc2/TemplateReaction_40ffabd4317dddaca55a9c0c4b63c145,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f7e788300ca0d0d621871f700bb5fdac http://pathwaycommons.org/pc2/TemplateReaction_40ffabd4317dddaca55a9c0c4b63c145
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f334fc131acfb3735519927456c4d27c http://pathwaycommons.org/pc2/TemplateReaction_e11c1aa379307a2d216e0caaa680ea55,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f334fc131acfb3735519927456c4d27c http://pathwaycommons.org/pc2/TemplateReaction_e11c1aa379307a2d216e0caaa680ea55
+0.25,0.5,2,TRUE,TNFAIP6,TRUE,FALSE,TNFAIP6
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_c517dc4d6703266c404044050e204ed7 http://pathwaycommons.org/pc2/TemplateReactionRegulation_9e4c383eed90c5da2e8965ba78ee2c0c,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_c517dc4d6703266c404044050e204ed7 http://pathwaycommons.org/pc2/TemplateReactionRegulation_9e4c383eed90c5da2e8965ba78ee2c0c
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_eeb8f44a6028e37816bf06725eabf31d http://pathwaycommons.org/pc2/TemplateReaction_87e5eb66d073bc2ac3e45697849a4aea http://identifiers.org/reactome/R-HSA-6790036 http://identifiers.org/reactome/R-HSA-6797258,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_eeb8f44a6028e37816bf06725eabf31d http://pathwaycommons.org/pc2/TemplateReaction_87e5eb66d073bc2ac3e45697849a4aea http://identifiers.org/reactome/R-HSA-6790036 http://identifiers.org/reactome/R-HSA-6797258
+0.5,0.5,1,FALSE,LDHA,TRUE,FALSE,LDHA
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_31b8db6ce10f779592327b42c12b8677 http://pathwaycommons.org/pc2/TemplateReactionRegulation_0aa5af399797281a0a0ce93744b60ff4,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_31b8db6ce10f779592327b42c12b8677 http://pathwaycommons.org/pc2/TemplateReactionRegulation_0aa5af399797281a0a0ce93744b60ff4
+0,0,2,TRUE,YAP1,TRUE,FALSE,YAP1
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_ef0422b4d9184df6a8d8363d30cdb213 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e42c4e33b55906cbec18066edcbc5ffd,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_ef0422b4d9184df6a8d8363d30cdb213 http://pathwaycommons.org/pc2/TemplateReactionRegulation_e42c4e33b55906cbec18066edcbc5ffd
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_ae0596908e7351ac10fe2079497c6bbc http://pathwaycommons.org/pc2/TemplateReactionRegulation_ccc517da145b567307b03234b4e48da0,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_ae0596908e7351ac10fe2079497c6bbc http://pathwaycommons.org/pc2/TemplateReactionRegulation_ccc517da145b567307b03234b4e48da0
+0.5,0.5,1,FALSE,http://identifiers.org/reactome/R-HSA-1235035 http://identifiers.org/reactome/R-HSA-1235075,TRUE,FALSE,http://identifiers.org/reactome/R-HSA-1235035 http://identifiers.org/reactome/R-HSA-1235075
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_848832d94df27863f79cb85d978a94f0 http://pathwaycommons.org/pc2/TemplateReaction_753440638b5e82e346e7f926144c4b72,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_848832d94df27863f79cb85d978a94f0 http://pathwaycommons.org/pc2/TemplateReaction_753440638b5e82e346e7f926144c4b72
+0,0,1,TRUE,BCL2L11,TRUE,FALSE,BCL2L11
+0,0,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_64250692d7945978cc85f0ffdeb290e8 http://pathwaycommons.org/pc2/TemplateReactionRegulation_3618529303468b75cf923d55df270ae5,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_64250692d7945978cc85f0ffdeb290e8 http://pathwaycommons.org/pc2/TemplateReactionRegulation_3618529303468b75cf923d55df270ae5
+0.5,0.5,1,FALSE,PLK2,TRUE,FALSE,PLK2
+0.5,0.5,1,FALSE,EGLN3,TRUE,FALSE,EGLN3
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_db4f2640ccffd6df6e8f9b229bb67461 http://pathwaycommons.org/pc2/TemplateReactionRegulation_d45ca25667815c2dbc512a0f7aa6668d,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_db4f2640ccffd6df6e8f9b229bb67461 http://pathwaycommons.org/pc2/TemplateReactionRegulation_d45ca25667815c2dbc512a0f7aa6668d
+0.5,0.5,1,FALSE,KRT14,TRUE,FALSE,KRT14
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_5c8267ccd46ea896e337fde52dcfc859 http://pathwaycommons.org/pc2/TemplateReaction_d4b6e79b24b201e88d12442b16e0a9b6 http://pathwaycommons.org/pc2/TemplateReactionRegulation_ebfaf7c51600fd42fe9ea2ea5ba77178 http://pathwaycommons.org/pc2/TemplateReaction_8335e7195027e402d43208c19b0a13c6 http://pathwaycommons.org/pc2/TemplateReaction_978f1a5fe0b744a208904b121edfb448 http://pathwaycommons.org/pc2/TemplateReactionRegulation_54fd6633cc17f9fcd74ce240222c57d5,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_5c8267ccd46ea896e337fde52dcfc859 http://pathwaycommons.org/pc2/TemplateReaction_d4b6e79b24b201e88d12442b16e0a9b6 http://pathwaycommons.org/pc2/TemplateReactionRegulation_ebfaf7c51600fd42fe9ea2ea5ba77178 http://pathwaycommons.org/pc2/TemplateReaction_8335e7195027e402d43208c19b0a13c6 http://pathwaycommons.org/pc2/TemplateReaction_978f1a5fe0b744a208904b121edfb448 http://pathwaycommons.org/pc2/TemplateReactionRegulation_54fd6633cc17f9fcd74ce240222c57d5
+0.5000000000000001,1.0000000000000002,2,TRUE,AKT3,TRUE,FALSE,AKT3
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_106db1f8b878038c6021ef2649c42155 http://pathwaycommons.org/pc2/TemplateReactionRegulation_165afe7e8a5aa75f2136bb6e0135f055,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_106db1f8b878038c6021ef2649c42155 http://pathwaycommons.org/pc2/TemplateReactionRegulation_165afe7e8a5aa75f2136bb6e0135f055
+0.49999999999999994,1.4999999999999998,3,TRUE,CD14,TRUE,FALSE,CD14
+0.5,0.5,1,FALSE,BIRC7,TRUE,FALSE,BIRC7
+0.5,0.5,1,FALSE,KLF11,TRUE,FALSE,KLF11
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_6d5e4d50c98fc0d32faf3b4bbaf4f853 http://pathwaycommons.org/pc2/TemplateReaction_f610e2367fec0a359c6edbf1fc038ccc,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_6d5e4d50c98fc0d32faf3b4bbaf4f853 http://pathwaycommons.org/pc2/TemplateReaction_f610e2367fec0a359c6edbf1fc038ccc
+0,0,2,TRUE,CFB,TRUE,FALSE,CFB
+0.5,0.5,1,FALSE,MT1L,TRUE,FALSE,MT1L
+0.5,0.5,1,FALSE,GRAMD4,TRUE,FALSE,GRAMD4
+0.5,0.5,1,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_da9bd8849983cb8eabe8e255521fbabb http://pathwaycommons.org/pc2/TemplateReaction_eb1118ec844d19c646c5d6ac24f4ad9c http://pathwaycommons.org/pc2/TemplateReaction_723c5a1d971947ff0a3e451f9713aff2 http://pathwaycommons.org/pc2/TemplateReactionRegulation_27bb9f6fa943a9e7d4359889904d48c6,TRUE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_da9bd8849983cb8eabe8e255521fbabb http://pathwaycommons.org/pc2/TemplateReaction_eb1118ec844d19c646c5d6ac24f4ad9c http://pathwaycommons.org/pc2/TemplateReaction_723c5a1d971947ff0a3e451f9713aff2 http://pathwaycommons.org/pc2/TemplateReactionRegulation_27bb9f6fa943a9e7d4359889904d48c6
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_bf4bc03cf69142d17b791d524e9711ef http://pathwaycommons.org/pc2/TemplateReactionRegulation_fb8084c7288775f8f28519a222454d7f,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_bf4bc03cf69142d17b791d524e9711ef http://pathwaycommons.org/pc2/TemplateReactionRegulation_fb8084c7288775f8f28519a222454d7f
+0.5,0.5,1,TRUE,DAPK2,FALSE,FALSE,DAPK2
+0.5,0.5,1,TRUE,ABCG1,FALSE,FALSE,ABCG1
+0.5,0.5,1,TRUE,HLA-DOB,FALSE,FALSE,HLA-DOB
+0.5,0.5,1,TRUE,HLA-DOA,FALSE,FALSE,HLA-DOA
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_106f1cd35380faedce4762bab7f6fc1b http://pathwaycommons.org/pc2/TemplateReactionRegulation_3a7722469799293a395498d9830a6aa9,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_106f1cd35380faedce4762bab7f6fc1b http://pathwaycommons.org/pc2/TemplateReactionRegulation_3a7722469799293a395498d9830a6aa9
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_6c9a2605c339a911de821353f1654e5b http://pathwaycommons.org/pc2/TemplateReaction_a5789f5c56de9a174bab004460ab9afb,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_6c9a2605c339a911de821353f1654e5b http://pathwaycommons.org/pc2/TemplateReaction_a5789f5c56de9a174bab004460ab9afb
+0.5,0.5,1,TRUE,ALB,FALSE,FALSE,ALB
+0.5,0.5,1,TRUE,TEF,FALSE,FALSE,TEF
+0.5000000000000001,1.0000000000000002,2,TRUE,CXCL10,FALSE,FALSE,CXCL10
+0.5,0.5,1,TRUE,HLF,FALSE,FALSE,HLF
+0.5,0.5,1,TRUE,http://identifiers.org/reactome/R-HSA-164419 http://identifiers.org/reactome/R-HSA-163743,FALSE,FALSE,http://identifiers.org/reactome/R-HSA-164419 http://identifiers.org/reactome/R-HSA-163743
+0.5,0.5,1,TRUE,EIF2AK2,FALSE,FALSE,EIF2AK2
+0.5,0.5,1,TRUE,PTGDS,FALSE,FALSE,PTGDS
+0.5,0.5,1,TRUE,CXCL14,FALSE,FALSE,CXCL14
+0.5,0.5,1,TRUE,RARG,FALSE,FALSE,RARG
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_16f6447a129af493934c1e0c4f03097d http://pathwaycommons.org/pc2/TemplateReaction_cd1d29575dab1de7fc8632965c71cb69 http://identifiers.org/reactome/R-HSA-139913 http://identifiers.org/reactome/R-HSA-159040,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_16f6447a129af493934c1e0c4f03097d http://pathwaycommons.org/pc2/TemplateReaction_cd1d29575dab1de7fc8632965c71cb69 http://identifiers.org/reactome/R-HSA-139913 http://identifiers.org/reactome/R-HSA-159040
+0.5,0.5,1,TRUE,ALOX12,FALSE,FALSE,ALOX12
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_cb5564cfd14bff70e7922336c7415a11 http://pathwaycommons.org/pc2/TemplateReactionRegulation_be885d51c655e45ee3f38485a030d218,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_cb5564cfd14bff70e7922336c7415a11 http://pathwaycommons.org/pc2/TemplateReactionRegulation_be885d51c655e45ee3f38485a030d218
+0.5,0.5,1,TRUE,MAT2B,FALSE,FALSE,MAT2B
+0.5,0.5,1,TRUE,TNFSF14,FALSE,FALSE,TNFSF14
+0.5000000000000001,1.0000000000000002,2,TRUE,LEP,FALSE,FALSE,LEP
+0.5,0.5,1,TRUE,DES,FALSE,FALSE,DES
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_29829e91ef099064aa5de5913a21801c http://pathwaycommons.org/pc2/TemplateReactionRegulation_8317ef39f1585f4ea8b05485a78a1bfa http://pathwaycommons.org/pc2/TemplateReaction_c3d4d3a7a5c8b05f14cb0d84ba24acfe http://pathwaycommons.org/pc2/TemplateReaction_7dd8a0813c7907fe6023f86812adddbf,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_29829e91ef099064aa5de5913a21801c http://pathwaycommons.org/pc2/TemplateReactionRegulation_8317ef39f1585f4ea8b05485a78a1bfa http://pathwaycommons.org/pc2/TemplateReaction_c3d4d3a7a5c8b05f14cb0d84ba24acfe http://pathwaycommons.org/pc2/TemplateReaction_7dd8a0813c7907fe6023f86812adddbf
+0.5,0.5,1,TRUE,MMP7,FALSE,FALSE,MMP7
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_8f65c473464dc59e70c62a7427006d5b http://pathwaycommons.org/pc2/TemplateReactionRegulation_e92db9f1612ce73aa1a2b7efc7bd069a http://pathwaycommons.org/pc2/TemplateReaction_cac68d90a003d2942b02247696bc41a1 http://pathwaycommons.org/pc2/TemplateReaction_471262ce838a6d33ea8ab5feb7e84f3b,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_8f65c473464dc59e70c62a7427006d5b http://pathwaycommons.org/pc2/TemplateReactionRegulation_e92db9f1612ce73aa1a2b7efc7bd069a http://pathwaycommons.org/pc2/TemplateReaction_cac68d90a003d2942b02247696bc41a1 http://pathwaycommons.org/pc2/TemplateReaction_471262ce838a6d33ea8ab5feb7e84f3b
+0.5,0.5,1,TRUE,CYP27A1,FALSE,FALSE,CYP27A1
+0.5,0.5,1,TRUE,SP100,FALSE,FALSE,SP100
+0.5,0.5,1,TRUE,CEACAM5,FALSE,FALSE,CEACAM5
+0.5,0.5,1,TRUE,VEGFC,FALSE,FALSE,VEGFC
+0.5,0.5,1,TRUE,SIX1,FALSE,FALSE,SIX1
+0.5,0.5,1,TRUE,AHR,FALSE,FALSE,AHR
+0.5,0.5,1,TRUE,LY96,FALSE,FALSE,LY96
+0.49999999999999994,1.4999999999999998,3,TRUE,JUND,FALSE,FALSE,JUND
+0.5,0.5,1,TRUE,MVP,FALSE,FALSE,MVP
+0.5,0.5,1,TRUE,DNASE2,FALSE,FALSE,DNASE2
+0.5,0.5,1,TRUE,ADH1B,FALSE,FALSE,ADH1B
+0.5,0.5,1,TRUE,ADH1C,FALSE,FALSE,ADH1C
+0.5,0.5,1,TRUE,CYP3A4,FALSE,FALSE,CYP3A4
+0.5,2,4,TRUE,DBP,FALSE,FALSE,DBP
+0.49999999999999994,1.4999999999999998,3,TRUE,KAT2B,FALSE,FALSE,KAT2B
+0.5,0.5,1,TRUE,CCL5,FALSE,FALSE,CCL5
+0.5,0.5,1,TRUE,ASNS,FALSE,FALSE,ASNS
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_106db1f8b878038c6021ef2649c42155 http://pathwaycommons.org/pc2/TemplateReactionRegulation_7fd57723b4f2cbeeca44bf0d9a386f31,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_106db1f8b878038c6021ef2649c42155 http://pathwaycommons.org/pc2/TemplateReactionRegulation_7fd57723b4f2cbeeca44bf0d9a386f31
+0.5000000000000001,1.0000000000000002,2,TRUE,GNAO1,FALSE,FALSE,GNAO1
+0.5,0.5,1,TRUE,http://identifiers.org/reactome/R-HSA-6797254 http://identifiers.org/reactome/R-HSA-6790029,FALSE,FALSE,http://identifiers.org/reactome/R-HSA-6797254 http://identifiers.org/reactome/R-HSA-6790029
+0.5,0.5,1,TRUE,PIK3R3,FALSE,FALSE,PIK3R3
+0.5,0.5,1,TRUE,PMAIP1,FALSE,FALSE,PMAIP1
+0.5000000000000001,4.000000000000001,8,TRUE,IL12RB1,FALSE,FALSE,IL12RB1
+0.5,0.5,1,TRUE,HLA-DMB,FALSE,FALSE,HLA-DMB
+0.5,0.5,1,TRUE,HLA-DMA,FALSE,FALSE,HLA-DMA
+0.5,0.5,1,TRUE,TIMP3,FALSE,FALSE,TIMP3
+0.5,0.5,1,TRUE,PHGDH,FALSE,FALSE,PHGDH
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_11d66d9a14a9bc4950aeb2be52108d80 http://pathwaycommons.org/pc2/TemplateReactionRegulation_638be57989982bc60a1c736972fea6ef http://pathwaycommons.org/pc2/TemplateReactionRegulation_6425b1537616b68d894ec1c1ff8d4133 http://pathwaycommons.org/pc2/TemplateReaction_cd29c93842603f896dae1d5a39ae7588,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_11d66d9a14a9bc4950aeb2be52108d80 http://pathwaycommons.org/pc2/TemplateReactionRegulation_638be57989982bc60a1c736972fea6ef http://pathwaycommons.org/pc2/TemplateReactionRegulation_6425b1537616b68d894ec1c1ff8d4133 http://pathwaycommons.org/pc2/TemplateReaction_cd29c93842603f896dae1d5a39ae7588
+0.5,2,4,TRUE,MAPK14,FALSE,FALSE,MAPK14
+0.5,0.5,1,TRUE,MTHFR,FALSE,FALSE,MTHFR
+0.5000000000000001,1.0000000000000002,2,TRUE,NFE2L2,FALSE,FALSE,NFE2L2
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b837b5fff66a02a31d1fbdb2251fa921 http://pathwaycommons.org/pc2/TemplateReaction_5e81b8ab4cb3a869a43ea1ff5fc6ff62,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_b837b5fff66a02a31d1fbdb2251fa921 http://pathwaycommons.org/pc2/TemplateReaction_5e81b8ab4cb3a869a43ea1ff5fc6ff62
+0.5000000000000001,1.0000000000000002,2,TRUE,GDF15,FALSE,FALSE,GDF15
+0.5000000000000001,1.0000000000000002,2,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7d925f2fd3a2a4b19e0f12d5a86ae6cc http://pathwaycommons.org/pc2/TemplateReaction_c36815c2675271340bda6851a223f766,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7d925f2fd3a2a4b19e0f12d5a86ae6cc http://pathwaycommons.org/pc2/TemplateReaction_c36815c2675271340bda6851a223f766
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_4510a1dc20c272c5bf9ab6dd1b62889f http://pathwaycommons.org/pc2/TemplateReactionRegulation_5d67ba8f8f5ded9a08fc5248baf04329,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_4510a1dc20c272c5bf9ab6dd1b62889f http://pathwaycommons.org/pc2/TemplateReactionRegulation_5d67ba8f8f5ded9a08fc5248baf04329
+0.5000000000000001,1.0000000000000002,2,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_50d6e0a4f052bf7acaa1c451393c6509 http://pathwaycommons.org/pc2/TemplateReactionRegulation_bccd46bd87a883308d438c4559926c3d,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_50d6e0a4f052bf7acaa1c451393c6509 http://pathwaycommons.org/pc2/TemplateReactionRegulation_bccd46bd87a883308d438c4559926c3d
+0.5000000000000001,1.0000000000000002,2,TRUE,FCGR1A,FALSE,FALSE,FCGR1A
+0.5,0.5,1,TRUE,TXNIP,FALSE,FALSE,TXNIP
+0.5,2,4,TRUE,MLXIPL,FALSE,FALSE,MLXIPL
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f81b9f648b69b85f741938811fc9b656 http://pathwaycommons.org/pc2/TemplateReaction_2252532afea5c80ee4247da2df290238,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_f81b9f648b69b85f741938811fc9b656 http://pathwaycommons.org/pc2/TemplateReaction_2252532afea5c80ee4247da2df290238
+0.5,0.5,1,TRUE,PRTN3,FALSE,FALSE,PRTN3
+0.5,0.5,1,TRUE,SLC22A2,FALSE,FALSE,SLC22A2
+0.5000000000000001,1.0000000000000002,2,TRUE,CEACAM1,FALSE,FALSE,CEACAM1
+0.49999999999999994,1.4999999999999998,3,TRUE,FGF2,FALSE,FALSE,FGF2
+0.5,0.5,1,TRUE,LMO2,FALSE,FALSE,LMO2
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_cd1d29575dab1de7fc8632965c71cb69 http://pathwaycommons.org/pc2/TemplateReactionRegulation_4ef7fbe5a367de2b789b230c8f02706d http://pathwaycommons.org/pc2/TemplateReactionRegulation_c357bd4ba71725e30a4fe6521e75c53d http://pathwaycommons.org/pc2/TemplateReactionRegulation_f8f833dac203a831111529d757c31163 http://pathwaycommons.org/pc2/TemplateReaction_ad0dfa8eae94a84c28285e66e3d874ca http://pathwaycommons.org/pc2/TemplateReaction_f5390792df81b9b094399a995d9a1b6d,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_cd1d29575dab1de7fc8632965c71cb69 http://pathwaycommons.org/pc2/TemplateReactionRegulation_4ef7fbe5a367de2b789b230c8f02706d http://pathwaycommons.org/pc2/TemplateReactionRegulation_c357bd4ba71725e30a4fe6521e75c53d http://pathwaycommons.org/pc2/TemplateReactionRegulation_f8f833dac203a831111529d757c31163 http://pathwaycommons.org/pc2/TemplateReaction_ad0dfa8eae94a84c28285e66e3d874ca http://pathwaycommons.org/pc2/TemplateReaction_f5390792df81b9b094399a995d9a1b6d
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7d0756571c5269c7dab18a8e2002e308 http://pathwaycommons.org/pc2/TemplateReaction_53b10d3a494ecf06800017ae411aa902,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7d0756571c5269c7dab18a8e2002e308 http://pathwaycommons.org/pc2/TemplateReaction_53b10d3a494ecf06800017ae411aa902
+0.5,0.5,1,TRUE,MAP2K5,FALSE,FALSE,MAP2K5
+0.5000000000000001,1.0000000000000002,2,TRUE,CYP1B1,FALSE,FALSE,CYP1B1
+0.5,0.5,1,TRUE,CYP8B1,FALSE,FALSE,CYP8B1
+0.49999999999999994,1.4999999999999998,3,TRUE,BBC3,FALSE,FALSE,BBC3
+0.5,0.5,1,TRUE,http://identifiers.org/reactome/R-HSA-8951332 http://identifiers.org/reactome/R-HSA-8950260,FALSE,FALSE,http://identifiers.org/reactome/R-HSA-8951332 http://identifiers.org/reactome/R-HSA-8950260
+0.5,0.5,1,TRUE,PSME2,FALSE,FALSE,PSME2
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_3d4b7a2b8bfb46dc41cb2533fd227b60 http://pathwaycommons.org/pc2/TemplateReaction_9d90d48374512756d6d2108eb00ea78a,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_3d4b7a2b8bfb46dc41cb2533fd227b60 http://pathwaycommons.org/pc2/TemplateReaction_9d90d48374512756d6d2108eb00ea78a
+0.5,0.5,1,TRUE,BAK1,FALSE,FALSE,BAK1
+0.5,0.5,1,TRUE,IGFBP5,FALSE,FALSE,IGFBP5
+0.5,0.5,1,TRUE,B2M,FALSE,FALSE,B2M
+0.49999999999999994,1.4999999999999998,3,TRUE,SOCS1,FALSE,FALSE,SOCS1
+0.5,0.5,1,TRUE,TGIF1,FALSE,FALSE,TGIF1
+0.49999999999999994,1.4999999999999998,3,TRUE,HDAC4,FALSE,FALSE,HDAC4
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_0659626bf96169ff2e95bba4cf2cabd0 http://pathwaycommons.org/pc2/TemplateReactionRegulation_23f373ffe0a9d2a2ea1e0e882984cc23,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_0659626bf96169ff2e95bba4cf2cabd0 http://pathwaycommons.org/pc2/TemplateReactionRegulation_23f373ffe0a9d2a2ea1e0e882984cc23
+0.5000000000000001,2.5000000000000004,5,TRUE,IL18RAP,FALSE,FALSE,IL18RAP
+0.5,0.5,1,TRUE,TNC,FALSE,FALSE,TNC
+0.5000000000000001,1.0000000000000002,2,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_50d6e0a4f052bf7acaa1c451393c6509 http://pathwaycommons.org/pc2/TemplateReactionRegulation_39538223092026900450b393c474bf70,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_50d6e0a4f052bf7acaa1c451393c6509 http://pathwaycommons.org/pc2/TemplateReactionRegulation_39538223092026900450b393c474bf70
+0.5,2,4,TRUE,GADD45G,FALSE,FALSE,GADD45G
+0.49999999999999994,1.4999999999999998,3,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_9ddf82d9a67b3eba197f425067ce0fb6 http://pathwaycommons.org/pc2/TemplateReactionRegulation_fa7e37bcf57d8564ca7ecec3027db3df,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_9ddf82d9a67b3eba197f425067ce0fb6 http://pathwaycommons.org/pc2/TemplateReactionRegulation_fa7e37bcf57d8564ca7ecec3027db3df
+0.49999999999999994,1.4999999999999998,3,TRUE,CXCL9,FALSE,FALSE,CXCL9
+0.5000000000000001,1.0000000000000002,2,TRUE,HLA-A,FALSE,FALSE,HLA-A
+0.5,0.5,1,TRUE,MAP1LC3B,FALSE,FALSE,MAP1LC3B
+0.5,0.5,1,TRUE,HOXB4,FALSE,FALSE,HOXB4
+0.5,0.5,1,TRUE,HLA-C,FALSE,FALSE,HLA-C
+0.5,0.5,1,TRUE,HLA-B,FALSE,FALSE,HLA-B
+0.49999999999999994,1.4999999999999998,3,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7f288994ba071e4ee610cb49a5dd29bc http://pathwaycommons.org/pc2/TemplateReaction_6c8811cf3e9790f50b68e2cf83e4710f,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_7f288994ba071e4ee610cb49a5dd29bc http://pathwaycommons.org/pc2/TemplateReaction_6c8811cf3e9790f50b68e2cf83e4710f
+0.5000000000000001,1.0000000000000002,2,TRUE,CD40,FALSE,FALSE,CD40
+0.5,0.5,1,TRUE,http://identifiers.org/reactome/R-HSA-1655845 http://identifiers.org/reactome/R-HSA-1655875,FALSE,FALSE,http://identifiers.org/reactome/R-HSA-1655845 http://identifiers.org/reactome/R-HSA-1655875
+0.5000000000000001,1.0000000000000002,2,TRUE,ACACA,FALSE,FALSE,ACACA
+0.49999999999999994,1.4999999999999998,3,TRUE,KLF4,FALSE,FALSE,KLF4
+0.5000000000000001,1.0000000000000002,2,TRUE,http://identifiers.org/reactome/R-HSA-1655830 http://identifiers.org/reactome/R-HSA-1655854,FALSE,FALSE,http://identifiers.org/reactome/R-HSA-1655830 http://identifiers.org/reactome/R-HSA-1655854
+0.49999999999999994,1.4999999999999998,3,TRUE,ACACB,FALSE,FALSE,ACACB
+0.5,0.5,1,TRUE,CASP7,FALSE,FALSE,CASP7
+0.5,0.5,1,TRUE,PPL,FALSE,FALSE,PPL
+0.5,0.5,1,TRUE,PAEP,FALSE,FALSE,PAEP
+0.5000000000000001,1.0000000000000002,2,TRUE,FMR1,FALSE,FALSE,FMR1
+0.5,0.5,1,TRUE,HLA-DRA,FALSE,FALSE,HLA-DRA
+0.5,0.5,1,TRUE,UTRN,FALSE,FALSE,UTRN
+0.5000000000000001,4.000000000000001,8,TRUE,PTGS2,FALSE,FALSE,PTGS2
+0.5,0.5,1,TRUE,SLC39A8,FALSE,FALSE,SLC39A8
+0.49999999999999994,1.4999999999999998,3,TRUE,http://identifiers.org/reactome/R-HSA-1989767 http://identifiers.org/reactome/R-HSA-1989816,FALSE,FALSE,http://identifiers.org/reactome/R-HSA-1989767 http://identifiers.org/reactome/R-HSA-1989816
+0.5,0.5,1,TRUE,DDX58,FALSE,FALSE,DDX58
+0.5,2,4,TRUE,TRIB3,FALSE,FALSE,TRIB3
+0.5,0.5,1,TRUE,MICB,FALSE,FALSE,MICB
+0.5,2,4,TRUE,ATF3,FALSE,FALSE,ATF3
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_64f6810a4300c1c8dd9d9d4bf220a2a3 http://pathwaycommons.org/pc2/TemplateReaction_23d30585128fbea2b94b5c7e76813d20,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_64f6810a4300c1c8dd9d9d4bf220a2a3 http://pathwaycommons.org/pc2/TemplateReaction_23d30585128fbea2b94b5c7e76813d20
+0.5000000000000001,2.5000000000000004,5,TRUE,NR1H3,FALSE,FALSE,NR1H3
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_89c115c52ceeea1c7c2361431743d70f http://pathwaycommons.org/pc2/TemplateReactionRegulation_8be987ff3f305a48eacfe19dc0eb364f,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_89c115c52ceeea1c7c2361431743d70f http://pathwaycommons.org/pc2/TemplateReactionRegulation_8be987ff3f305a48eacfe19dc0eb364f
+0.5000000000000001,1.0000000000000002,2,TRUE,MAML2,FALSE,FALSE,MAML2
+0.5,0.5,1,TRUE,HDAC9,FALSE,FALSE,HDAC9
+0.49999999999999994,2.9999999999999996,6,TRUE,NCOA2,FALSE,FALSE,NCOA2
+0.5000000000000001,5.000000000000001,10,TRUE,JAK2,FALSE,FALSE,JAK2
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_fca5dd61681a822e3d7fe3b872d7810b http://pathwaycommons.org/pc2/TemplateReaction_9ed8fac92af37f0be3a3dd444625a9ae http://pathwaycommons.org/pc2/TemplateReactionRegulation_be70b45d8213d6561ba28db3905caf33 http://pathwaycommons.org/pc2/TemplateReaction_27b6e89b29d13751568a58e01d251ba4,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_fca5dd61681a822e3d7fe3b872d7810b http://pathwaycommons.org/pc2/TemplateReaction_9ed8fac92af37f0be3a3dd444625a9ae http://pathwaycommons.org/pc2/TemplateReactionRegulation_be70b45d8213d6561ba28db3905caf33 http://pathwaycommons.org/pc2/TemplateReaction_27b6e89b29d13751568a58e01d251ba4
+0.5,0.5,1,TRUE,DCP1B,FALSE,FALSE,DCP1B
+0.5,0.5,1,TRUE,TNFSF4,FALSE,FALSE,TNFSF4
+0.5,0.5,1,TRUE,HDAC11,FALSE,FALSE,HDAC11
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReaction_2581909b0cb254fa95d722959eba7117 http://pathwaycommons.org/pc2/TemplateReactionRegulation_83abae3c04b5a9beb53121486816c402,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReaction_2581909b0cb254fa95d722959eba7117 http://pathwaycommons.org/pc2/TemplateReactionRegulation_83abae3c04b5a9beb53121486816c402
+0.5000000000000001,1.0000000000000002,2,TRUE,LIF,FALSE,FALSE,LIF
+0.5000000000000001,3.5000000000000004,7,TRUE,IL23A,FALSE,FALSE,IL23A
+0.49999999999999994,2.9999999999999996,6,TRUE,HELZ2,FALSE,FALSE,HELZ2
+0.5,0.5,1,TRUE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_76b81360fd5282b7207880754721d27b http://pathwaycommons.org/pc2/TemplateReaction_b070ed740c4d8641491a457e2800adae,FALSE,FALSE,http://pathwaycommons.org/pc2/TemplateReactionRegulation_76b81360fd5282b7207880754721d27b http://pathwaycommons.org/pc2/TemplateReaction_b070ed740c4d8641491a457e2800adae
+0.5,0.5,1,TRUE,A2M,FALSE,FALSE,A2M
+0.5000000000000001,1.0000000000000002,2,TRUE,MET,FALSE,FALSE,MET
+0.5,0.5,1,TRUE,PAX5,FALSE,FALSE,PAX5
+0.5,0.5,1,TRUE,CCR1,FALSE,FALSE,CCR1
+0.5,0.5,1,TRUE,ADGRE5,FALSE,FALSE,ADGRE5
+0.5000000000000001,1.0000000000000002,2,TRUE,ZEB1,FALSE,FALSE,ZEB1
+0.5,0.5,1,TRUE,RHOU,FALSE,FALSE,RHOU
+0.5,0.5,1,TRUE,PIGR,FALSE,FALSE,PIGR
+0.49999999999999994,5.999999999999999,12,TRUE,CIITA,FALSE,FALSE,CIITA
+0.5,5.5,6,TRUE,USF1,FALSE,FALSE,USF1
+0.5,4.5,1,TRUE,SREBF1,FALSE,FALSE,SREBF1
+0.5,19,2,TRUE,SP1,TRUE,FALSE,SP1
+0.5,11,8,TRUE,STAT1,FALSE,FALSE,STAT1
+0.5,2,4,TRUE,GATA3,FALSE,FALSE,GATA3
