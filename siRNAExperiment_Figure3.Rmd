@@ -20,6 +20,7 @@ library(stats)
 library(svglite)
 library(circlize)
 library(rlang)
+library(patchwork)
 
 #set ligand graphical parameters
 my_cols <- c('EGF'='#F68282',
@@ -30,51 +31,32 @@ my_cols <- c('EGF'='#F68282',
 
 ```{r functions, echo=FALSE}
 #function to read in phenotypic quantifications from LiveCellPhenotype_Quantification_Figure1.Rmd, perform statistical testing, and construct heatmap
-phenotype_test<-function(data_rep1=pheno_dat_file1,data_rep2=pheno_dat_file2, data_rep3 = pheno_dat_file3, data_rep1_scr = pheno_dat_file_scr1, data_rep2_scr = pheno_dat_file_scr2, data_rep3_scr = pheno_dat_file_scr3, phenotype = 'Cell Count'){
-  
-  #read in three replicates of siRNA experiment, raw data for statistical testing
-  pheno_dat_run1<-read_csv(data_rep1)
-  pheno_dat_run2<-read_csv(data_rep2)
-  pheno_dat_run3<-read_csv(data_rep3)
-  
-  #SCR normalized data for plotting
-  pheno_dat_run1_scr<-read_csv(data_rep1_scr)
-  pheno_dat_run2_scr<-read_csv(data_rep2_scr)
-  pheno_dat_run3_scr<-read_csv(data_rep3_scr)
-  
-  #combine and format data
-  pheno_dat_full<-full_join(pheno_dat_run1, pheno_dat_run2) %>%
-  full_join(pheno_dat_run3) %>%
-  filter(siRNA !='WT' & siRNA != 'PLK1' & siRNA !='HIF1A_2')
-  colnames(pheno_dat_full)<-c('ligand','siRNA', phenotype)
-  
-  #calculate median value of SCR normalized data for heatmap
-  scr_1_format<-pheno_dat_run1_scr %>%
-  select(-HIF1A_2, -WT, -PLK1) %>%
-  gather(key = 'siRNA', value = as.name(phenotype), -ligand)
-  scr_2_format<-pheno_dat_run2_scr %>%
-  select(-HIF1A_2, -WT, -PLK1) %>%
-  gather(key = 'siRNA', value = as.name(phenotype), -ligand)
-  scr_3_format<-pheno_dat_run3_scr %>%
-  select(-HIF1A_2, -WT, -PLK1) %>%
-  gather(key = 'siRNA', value = as.name(phenotype), -ligand)
+#raw data is available at Zenodo: 10.5281/zenodo.17101147, processed phenotypic data is avilable on github
 
-  scr_full<-full_join(scr_1_format, scr_2_format) %>%
-  full_join(scr_3_format)
+#read in raw phenotypic data for statistical testing
+phenotypic_data_raw<-read_csv('Data/siRNAScreen_Phenotypic_Quantifications_raw.csv')
 
-  scr_full$Median = apply(scr_full[c(3:5)], 1, median, na.rm=T)
+#scramble normalized data for visualization
+phenotypic_data_scr<-read_csv('Data/siRNAScreen_Phenotypic_Quantifications_scr.csv')
+
+phenotype_test<-function(data_raw = phenotypic_data_raw, data_scr = phenotypic_data_scr, phenotype = 'CellCount', phenotypemedian = 'Median_Proliferation'){
+  
+  #format data
+  pheno_dat_full<- data_raw %>%
+  filter(siRNA !='WT' & siRNA != 'PLK1' & siRNA !='HIF1A_2') %>%
+    select(ligand, siRNA, phenotype, Replicate)
   
   #format scr normalized data for heatmap
-  scr_mat<-scr_full %>%
-  select(ligand, siRNA, Median) %>%
-  filter(siRNA != 'SCR') %>%
-  spread(key = siRNA, value = Median) %>%
-  mutate(ligand = factor(ligand, levels = c('EGF', 'OSM', 'IFNG'))) %>%
-  column_to_rownames('ligand') %>%
-  t %>%
-  as.data.frame() %>%
-  arrange(desc(OSM)) %>%
-  t
+  scr_mat<-data_scr %>%
+    select(ligand, siRNA, phenotypemedian) %>%
+    filter(siRNA != 'SCR') %>%
+    spread(key = siRNA, value = phenotypemedian) %>%
+    mutate(ligand = factor(ligand, levels = c('EGF', 'OSM', 'IFNG'))) %>%
+    column_to_rownames('ligand') %>%
+    t %>%
+    as.data.frame() %>%
+    arrange(desc(OSM)) %>%
+    t
 
   scr_ordered_mat<-scr_mat[c(3,2,1),]
   
@@ -101,15 +83,15 @@ phenotype_test<-function(data_rep1=pheno_dat_file1,data_rep2=pheno_dat_file2, da
   
   #format for heatmap
   p_combined<-p_combined %>%
-  t %>%
-  as.data.frame() %>%
-  select((colnames(scr_ordered_mat)))
+    t %>%
+    as.data.frame() %>%
+    select((colnames(scr_ordered_mat)))
 
   p_combined<-p_combined[c(3,2,1),]
 
   #heatmap of median proliferation values, with stars for significance
   t<-Heatmap(matrix = scr_ordered_mat,
-        name = as.name(phenotype),
+        name = as.character(phenotype),
         cell_fun = function(j, i, x, y, w, h, fill) {
           if(p_combined[i, j] < 0.001) {
             grid.text("***", x, y, gp = gpar(fontsize = 28))
@@ -138,32 +120,22 @@ phenotype_test<-function(data_rep1=pheno_dat_file1,data_rep2=pheno_dat_file2, da
 }
 ```
 
-```{r Heatmaps, echo=FALSE}
-#run statistical tests and create heatmaps from siRNA phenotype quantifications
-
-cellcount_hm<-phenotype_test(data_rep1 = 'siRNA_CellCount_rep1.csv', data_rep2 = 'siRNA_CellCount_rep2.csv',data_rep3 = 'siRNA_CellCount_rep3.csv',data_rep1_scr = 'siRNA_CellCount_rep1_scr.csv', data_rep2_scr = 'siRNA_CellCount_rep1_scr.csv',data_rep3_scr = 'siRNA_CellCount_rep3.csv', phenotype - 'Cell Count')
-
-motility_hm<-phenotype_test(data_rep1 = 'siRNA_motility_rep1.csv', data_rep2 = 'siRNA_motility_rep2.csv',data_rep3 = 'siRNA_motility_rep3.csv',data_rep1_scr = 'siRNA_motility_rep1_scr.csv', data_rep2_scr = 'siRNA_motility_rep1_scr.csv',data_rep3_scr = 'siRNA_motility_rep3.csv', phenotype = 'Motility')
-
-NearestNeigh_hm<-phenotype_test(data_rep1 = 'siRNA_NearestNeigh_rep1.csv', data_rep2 = 'siRNA_NearestNeigh_rep2.csv',data_rep3 = 'siRNA_NearestNeigh_rep3.csv',data_rep1_scr = 'siRNA_NearestNeigh_rep1_scr.csv', data_rep2_scr = 'siRNA_NearestNeigh_rep1_scr.csv',data_rep3_scr = 'siRNA_NearestNeigh_rep3.csv', phenotype = 'Nearest Neighbor Distance')
-
-CosineSim_hm<-phenotype_test(data_rep1 = 'siRNA_CosineSim_rep1.csv', data_rep2 = 'siRNA_CosineSim_rep2.csv',data_rep3 = 'siRNA_CosineSim_rep3.csv',data_rep1_scr = 'siRNA_CosineSim_rep1_scr.csv', data_rep2_scr = 'siRNA_CosineSim_rep1_scr.csv',data_rep3_scr = 'siRNA_CosineSim_rep3.csv', phenotype = 'Cosine Similarity')
-```
 
 ```{r PCA, echo=FALSE}
 #run PCA on combined siRNA phenotype quantification
 
-#combine all phenotype data
-phenotype_dat<-full_join(proliferation_full, msd_full) %>%
-  full_join(neighbors_full) %>%
-  full_join(similarity_full) %>%
+#format phenotype data for scatterplots
+phenotype_dat<-phenotypic_data_scr %>%
   select(ligand, siRNA, Median_Proliferation, Median_msd, Median_neighbors,Median_similarity) %>%
-  rename(Median_Motility = Median_msd, Median_Nearest_Neighbor_Distance = Median_neighbors) %>%
+  rename(Median_Motility = Median_msd, Median_Nearest_Neighbor_Distance = Median_neighbors)%>%
   gather(key = 'Phenotypic_Metric', value = 'Phenotype_Score', -siRNA, -ligand) %>%
   spread(key = ligand, value = Phenotype_Score)
 
 #format data for PCA
-siRNA_pca<-phenotype_dat %>%
+siRNA_pca<-phenotypic_data_scr %>%
+  select(ligand, siRNA, Median_Proliferation, Median_msd, Median_neighbors,Median_similarity) %>%
+  rename(Median_Motility = Median_msd, Median_Nearest_Neighbor_Distance = Median_neighbors)%>%
+  gather(key = 'Phenotypic_Metric', value = 'Phenotype_Score', -siRNA, -ligand) %>%
   mutate(Pheno_ligand = paste0(ligand,'_', Phenotypic_Metric)) %>%
   filter(siRNA != 'SCR' ) %>%
   select(-ligand, -Phenotypic_Metric) %>%
@@ -185,11 +157,107 @@ ggplot(df, aes(PC1, PC2)) +
         axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(2)),
         plot.title = element_text(size = rel(2)),legend.text=element_text(size = rel(1)), axis.title = element_text(size = rel(2)),
         legend.title=element_text(size = rel(2)),  panel.grid.minor = element_blank())
+
+# Convert loadings to tidy format
+PCAloadings <- data.frame(Variables = rownames(pca_res$rotation), pca_res$rotation)
+
+#average loadings per pc1 and pc2 per phenotype
+PCAloadings <- PCAloadings %>%
+  mutate(Treatment = sub("_.*", "", Variables)) %>%
+  mutate(Phenotype = gsub('.*_', '', Variables))
+
+PCAloadings_avg_posthoc <- PCAloadings %>%
+  group_by(Treatment) %>%
+  summarise(across(starts_with("PC"), mean))
+
+PCAloadings_avg_posthoc_oth <- PCAloadings %>%
+  group_by(Phenotype) %>%
+  summarise(across(starts_with("PC"), mean))
+
+p1 <- PCAloadings_avg_posthoc_oth %>%
+  ggplot(aes(x = reorder(Phenotype, PC1), y = PC1)) +
+  geom_col(fill = "#4F6D7A") +
+  coord_flip() +
+  xlab("") +
+  ylab("Average PC1 Loading (Phenotype)") +
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = rel(1.5)),
+    axis.title = element_text(size = rel(2)),
+    plot.title = element_text(size = rel(2))
+  ) +
+  ggtitle("PC1: Phenotype Averages")
+
+p2 <- PCAloadings_avg_posthoc %>%
+  ggplot(aes(x = reorder(Treatment, PC1), y = PC1)) +
+  geom_col(fill = "#C05746") +
+  coord_flip() +
+  xlab("") +
+  ylab("Average PC1 Loading (Treatment)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = rel(1.5)),
+        axis.title = element_text(size = rel(2)),
+        plot.title = element_text(size = rel(2))) +
+  ggtitle("PC1: Treatment Averages")
+
+p3 <- PCAloadings %>%
+  ggplot(aes(x = Treatment, y = Phenotype, fill = PC1)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  xlab("Treatment") + ylab("Phenotype") +
+  theme_bw() +
+  theme(axis.text = element_text(size = rel(1.2)),
+        axis.title = element_text(size = rel(1.5)),
+        plot.title = element_text(size = rel(2))) +
+  ggtitle("PC1: Phenotype × Treatment")
+
+# Phenotype averages PC2
+p4 <- PCAloadings_avg_posthoc_oth %>%
+  ggplot(aes(x = reorder(Phenotype, PC2), y = PC2)) +
+  geom_col(fill = "#4F6D7A") +
+  coord_flip() +
+  xlab("") +
+  ylab("Average PC2 Loading (Phenotype)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = rel(1.5)),
+        axis.title = element_text(size = rel(2)),
+        plot.title = element_text(size = rel(2))) +
+  ggtitle("PC2: Phenotype Averages")
+
+# Treatment averages PC2
+p5 <- PCAloadings_avg_posthoc %>%
+  ggplot(aes(x = reorder(Treatment, PC2), y = PC2)) +
+  geom_col(fill = "#C05746") +
+  coord_flip() +
+  xlab("") +
+  ylab("Average PC2 Loading (Treatment)") +
+  theme_bw() +
+  theme(axis.text = element_text(size = rel(1.5)),
+        axis.title = element_text(size = rel(2)),
+        plot.title = element_text(size = rel(2))) +
+  ggtitle("PC2: Treatment Averages")
+
+# Detailed matrix PC2
+p6 <- PCAloadings %>%
+  ggplot(aes(x = Treatment, y = Phenotype, fill = PC2)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", midpoint = 0) +
+  xlab("Treatment") + ylab("Phenotype") +
+  theme_bw() +
+  theme(axis.text = element_text(size = rel(1.2)),
+        axis.title = element_text(size = rel(1.5)),
+        plot.title = element_text(size = rel(2))) +
+  ggtitle("PC2: Phenotype × Treatment")
+
+
+final_plot <- (p1 | p2) / p3 | (p4 | p5) / p6 +
+  plot_layout(guides = "collect")
+
 ```
 
 ```{r scatterplots, echo=FALSE}
 #plot phenotypic metrics ligand vs ligand in scatterplot
-ggplot(subset(ligand_vs_ligand, Phenotypic_Metric == 'Median_Motility'), aes(x=OSM, y=EGF, label = siRNA)) +
+ggplot(subset(phenotype_dat, Phenotypic_Metric == 'Median_Motility'), aes(x=OSM, y=EGF, label = siRNA)) +
   geom_point() + theme_bw()  +geom_text(hjust=0, vjust=0, size=5) + geom_abline(linetype = 'dashed') + coord_fixed() + xlim(c(.5,2)) + ylim(c(.5,2)) + ggtitle("Motility") +
   theme(axis.text.x = element_text(angle = 0, size=rel(2)),
         axis.text.y = element_text(angle = 0, vjust = 0.5, hjust=1, size=rel(2)),
